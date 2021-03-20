@@ -32,5 +32,9 @@ void Player::RenderMouseXZProjection() const
 
 void Player::RenderGridSelection() const
 {
-    arena->RenderSquare((int) gridSelection.x, (int) gridSelection.z, 0.45f, Float3(1, 0, 0));
+    ArenaTile* tile = arena->GetTile((int)gridSelection.x, (int)gridSelection.z);
+    if (tile != nullptr && !tile->GetIsPartOfThePath())
+    {
+        arena->RenderSquare((int)gridSelection.x, (int)gridSelection.z, 0.45f, Float3(1, 0, 0));
+    }
 }

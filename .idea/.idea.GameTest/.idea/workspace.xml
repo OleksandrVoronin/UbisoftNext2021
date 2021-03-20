@@ -11,23 +11,29 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/../../../../Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.26.28801/include/vector" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.26.28801/include/xmemory" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://D:/Windows Kits/10/Include/10.0.18362.0/um/Xinput.h" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
       <option value="$PROJECT_DIR$/GameTest/App/main.cpp" />
       <option value="$PROJECT_DIR$/GameTest/Gameplay/TowerDefense.h" />
       <option value="$PROJECT_DIR$/GameTest/App/AppSettings.h" />
-      <option value="$PROJECT_DIR$/GameTest/Transform.h" />
       <option value="$PROJECT_DIR$/GameTest/Math/Float3.h" />
       <option value="$PROJECT_DIR$/GameTest/Camera.h" />
       <option value="$PROJECT_DIR$/GameTest/Gameplay/PlayerController.h" />
       <option value="$PROJECT_DIR$/GameTest/Gameplay/PlayerController.cpp" />
-      <option value="$PROJECT_DIR$/GameTest/Gameplay/ArenaTile.h" />
-      <option value="$PROJECT_DIR$/GameTest/GameTest.cpp" />
-      <option value="$PROJECT_DIR$/GameTest/Gameplay/TowerDefenseArena.cpp" />
       <option value="$PROJECT_DIR$/GameTest/LineRenderer.h" />
       <option value="$PROJECT_DIR$/GameTest/LineRenderer.cpp" />
+      <option value="$PROJECT_DIR$/GameTest/GameTest.cpp" />
+      <option value="$PROJECT_DIR$/GameTest/Gameplay/Player.cpp" />
+      <option value="$PROJECT_DIR$/GameTest/Gameplay/Buildings/BaseBuilding.h" />
+      <option value="$PROJECT_DIR$/GameTest/Gameplay/ArenaTile.h" />
+      <option value="$PROJECT_DIR$/GameTest/Gameplay/Buildings/CoreBuilding.h" />
+      <option value="$PROJECT_DIR$/GameTest/Gameplay/Buildings/IBuilding.h" />
+      <option value="$PROJECT_DIR$/GameTest/Transform.h" />
+      <option value="$PROJECT_DIR$/GameTest/Gameplay/TowerDefenseArena.cpp" />
       <option value="$PROJECT_DIR$/GameTest/Gameplay/TowerDefenseArena.h" />
     </changedPaths>
   </component>
@@ -100,7 +106,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1616164901053</updated>
-      <workItem from="1616164914971" duration="34219000" />
+      <workItem from="1616164914971" duration="43018000" />
     </task>
     <servers />
   </component>
@@ -111,5 +117,16 @@
   <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/GameTest/Gameplay/TowerDefenseArena.h</url>
+          <line>33</line>
+          <option name="timeStamp" value="24" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

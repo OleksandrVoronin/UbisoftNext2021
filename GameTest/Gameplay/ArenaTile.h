@@ -2,6 +2,7 @@
 #include <dsound.h>
 
 #include "../Math/Float3.h"
+#include "Buildings/IBuilding.h"
 
 class ArenaTile
 {
@@ -11,7 +12,7 @@ public:
     {
     }
 
-    Float3 GetPosition() const
+    Float3 GetTileCoordinates() const
     {
         return position;
     }
@@ -21,7 +22,18 @@ public:
         return partOfThePath;
     }
 
+    IBuilding* GetBuilding() const
+    {
+        return building;
+    }
+
+    void AddBuilding(IBuilding* building)
+    {
+        this->building = building;
+    }
+
 private:
     Float3 position;
     boolean partOfThePath = false;
+    IBuilding* building = nullptr;
 };

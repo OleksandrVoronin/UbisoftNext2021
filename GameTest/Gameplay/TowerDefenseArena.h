@@ -4,6 +4,7 @@
 #include "../Camera.h"
 #include "../LineRenderer.h"
 #include "../Math/Float3.h"
+#include "Buildings/CoreBuilding.h"
 
 class Player;
 
@@ -17,7 +18,7 @@ public:
     const float stepX = worldSizeX / static_cast<float>(cellsX);
     const float stepZ = worldSizeZ / static_cast<float>(cellsZ);
 
-    TowerDefenseArena(int cellsX, int cellsZ, Float3* map);
+    TowerDefenseArena(int cellsX, int cellsZ, std::vector<Float3> map);
 
     ~TowerDefenseArena();
 
@@ -25,14 +26,40 @@ public:
 
     void Render() const;
 
-    LineRenderer* GetLineRenderer()
+    void AddBuilding(int x, int y, IBuilding* building)
+    {
+        GetTile(x, y)->AddBuilding(building);
+        building->SetParent(root);
+        building->MoveToLocal(GetTilePosition(x, y) + Float3(stepX / 2.0f, 0, stepZ / 2.0f));
+        buildings.push_back(building);
+    }
+
+    LineRenderer* GetLineRenderer() const
     {
         return lineRenderer;
     }
 
-    Camera* GetCamera()
+    Camera* GetCamera() const
     {
         return camera;
+    }
+
+    Float3 GetTilePosition(int x, int y)
+    {
+        ArenaTile* tile = GetTile(x, y);
+        if (tile)
+        {
+            return Float3(tile->GetTileCoordinates().x * stepX, 0, tile->GetTileCoordinates().z * stepZ);
+        }
+
+        return Float3(-1, -1, -1);
+    }
+
+    ArenaTile* GetTile(int x, int y)
+    {
+        if (x < 0 || y < 0 || x >= cellsX || y >= cellsZ) return nullptr;
+
+        return &tiles[x][y];
     }
 
     void RenderSquare(int x, int z, float size, Float3 color, bool fogApplied = true, float yOffset = 0) const
@@ -69,10 +96,11 @@ private:
     LineRenderer* lineRenderer;
     Player* player;
 
-    const Float3 gridColor{0, 0.62745, 0.63922};
+    const Float3 gridColor{0.36f, 0.0f, 0.0f};
 
     std::vector<Float3> path;
     std::vector<std::vector<ArenaTile>> tiles;
+    std::vector<IBuilding*> buildings;
 
     // Renders grid lines with continuous lines only breaking them where necessary (rather than rendering squares outside of path, causing tons of overdraw)
     void RenderArena() const
@@ -207,15 +235,15 @@ private:
                     if (x == 0 || z == 0 || tiles[x - 1][z - 1].GetIsPartOfThePath())
                     {
                         const Float3 a = camera->WorldToCamera(Float3(stepX * (x), 0, stepZ * (z)));
-                        const Float3 b = camera->WorldToCamera(Float3(stepX * (x), -stepZ * 1.2f, stepZ * (z)));
-                        lineRenderer->DrawGradientLineFogApplied(&a, &b, gridColor, Float3(), 4.f);
+                        const Float3 b = camera->WorldToCamera(Float3(stepX * (x), -stepZ * 1.1f, stepZ * (z)));
+                        lineRenderer->DrawGradientLineFogApplied(&a, &b, gridColor, lineRenderer->fogColor, 4.f);
                     }
 
                     if (x == cellsX - 1 || z == 0 || tiles[x + 1][z - 1].GetIsPartOfThePath())
                     {
                         const Float3 c = camera->WorldToCamera(Float3(stepX * (x + 1), 0, stepZ * (z)));
-                        const Float3 d = camera->WorldToCamera(Float3(stepX * (x + 1), -stepZ * 1.2f, stepZ * (z)));
-                        lineRenderer->DrawGradientLineFogApplied(&c, &d, gridColor, Float3(), 4.f);
+                        const Float3 d = camera->WorldToCamera(Float3(stepX * (x + 1), -stepZ * 1.1f, stepZ * (z)));
+                        lineRenderer->DrawGradientLineFogApplied(&c, &d, gridColor, lineRenderer->fogColor, 4.f);
                     }
                 }
             }
@@ -246,15 +274,15 @@ private:
                 if (needsLeftLine)
                 {
                     const Float3 a = camera->WorldToCamera(Float3(stepX * (x + 1), 0, stepZ * (z + 1)));
-                    const Float3 b = camera->WorldToCamera(Float3(stepX * (x + 1), -stepZ * 1.2f, stepZ * (z + 1)));
-                    lineRenderer->DrawGradientLineFogApplied(&a, &b, gridColor, Float3(), 4.f);
+                    const Float3 b = camera->WorldToCamera(Float3(stepX * (x + 1), -stepZ * 1.1f, stepZ * (z + 1)));
+                    lineRenderer->DrawGradientLineFogApplied(&a, &b, gridColor, lineRenderer->fogColor, 4.f);
                 }
 
                 if (needsRightLine)
                 {
                     const Float3 a = camera->WorldToCamera(Float3(stepX * (x + 1), 0, stepZ * (z + 1)));
-                    const Float3 b = camera->WorldToCamera(Float3(stepX * (x + 1), -stepZ * 1.2f, stepZ * (z + 1)));
-                    lineRenderer->DrawGradientLineFogApplied(&a, &b, gridColor, Float3(), 4.f);
+                    const Float3 b = camera->WorldToCamera(Float3(stepX * (x + 1), -stepZ * 1.1f, stepZ * (z + 1)));
+                    lineRenderer->DrawGradientLineFogApplied(&a, &b, gridColor, lineRenderer->fogColor, 4.f);
                 }
             }
         }
@@ -273,12 +301,11 @@ private:
         }
     }
 
-    void ParseMap(Float3* map)
+    void ParseMap(std::vector<Float3> map)
     {
         std::vector<std::vector<boolean>> pathMap(cellsX, std::vector<boolean>(cellsZ, false));
 
-        // TODO: this is a big weird fix it, maps should be passed in vectors or sometihng
-        for (int i = 0; i < 11; i++)
+        for (int i = 0; i < map.size(); i++)
         {
             path.push_back(Float3(map[i].x * stepX, 0, map[i].y * stepZ));
         }
@@ -308,9 +335,12 @@ private:
         {
             for (int z = 0; z < cellsZ; z++)
             {
-                tiles[x].push_back(ArenaTile{Float3(x, 0, z), pathMap[x][z]});
+                tiles[x].push_back(ArenaTile{Float3((float)x, 0, (float)z), pathMap[x][z]});
             }
         }
+
+        AddBuilding(path[path.size() - 1].x, path[path.size() - 1].z,
+                    new CoreBuilding(min(stepX, stepZ), Float3(0, 0, 0)));
 
         path.insert(path.begin(), Float3(map[0].x * stepX, 0, (map[0].y + 2) * stepZ));
     }

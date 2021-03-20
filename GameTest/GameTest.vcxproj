@@ -185,6 +185,8 @@
     <ClInclude Include="App\TextureLoader.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Gameplay\ArenaTile.h" />
+    <ClInclude Include="Gameplay\Buildings\CoreBuilding.h" />
+    <ClInclude Include="Gameplay\Buildings\IBuilding.h" />
     <ClInclude Include="Gameplay\Player.h" />
     <ClInclude Include="Gameplay\TowerDefenseArena.h" />
     <ClInclude Include="LineRenderer.h" />
@@ -205,6 +207,8 @@
     <ClCompile Include="App\TextureLoader.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Gameplay\ArenaTile.cpp" />
+    <ClCompile Include="Gameplay\Buildings\CoreBuilding.cpp" />
+    <ClCompile Include="Gameplay\Buildings\IBuilding.cpp" />
     <ClCompile Include="Gameplay\Player.cpp" />
     <ClCompile Include="Gameplay\TowerDefenseArena.cpp" />
     <ClCompile Include="GameTest.cpp" />

@@ -1,3 +1,7 @@
-﻿  GameTest.vcxproj -> C:\Users\Sasha\workspace\UbisoftNext2021\x64\Debug\GameTest.exe
+﻿  LineRenderer.cpp
+C:\Users\Sasha\workspace\UbisoftNext2021\GameTest\LineRenderer.cpp(12,38): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Sasha\workspace\UbisoftNext2021\GameTest\LineRenderer.cpp(12,24): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Sasha\workspace\UbisoftNext2021\GameTest\LineRenderer.cpp(12,21): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  GameTest.vcxproj -> C:\Users\Sasha\workspace\UbisoftNext2021\x64\Debug\GameTest.exe
   C:\Users\Sasha\workspace\UbisoftNext2021\\GameTest\glut\bin\x64\freeglut.dll
   1 File(s) copied

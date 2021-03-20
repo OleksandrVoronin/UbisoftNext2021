@@ -17,7 +17,7 @@ TowerDefenseArena* arena;
 //------------------------------------------------------------------------
 void Init()
 {
-    Float3 map[11]{
+    const std::vector<Float3> map {
         Float3(10, 11),
         Float3(10, 8),
         Float3(6, 8),
@@ -40,7 +40,7 @@ void Init()
 void Update(float deltaTime)
 {
     deltaTime /= 1000.0f;
-    
+
     arena->Update(deltaTime);
 }
 

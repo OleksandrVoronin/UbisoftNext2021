@@ -25,6 +25,12 @@
         <e p="Gameplay" t="Include">
           <e p="ArenaTile.cpp" t="Include" />
           <e p="ArenaTile.h" t="Include" />
+          <e p="Buildings" t="Include">
+            <e p="CoreBuilding.cpp" t="Include" />
+            <e p="CoreBuilding.h" t="Include" />
+            <e p="IBuilding.cpp" t="Include" />
+            <e p="IBuilding.h" t="Include" />
+          </e>
           <e p="Player.cpp" t="Include" />
           <e p="Player.h" t="Include" />
           <e p="TowerDefenseArena.cpp" t="Include" />

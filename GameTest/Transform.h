@@ -71,6 +71,8 @@ public:
         {
             this->parent->children.push_back(this);
         }
+
+        DirtySelf();
     }
 
     Transform* GetParent() const
