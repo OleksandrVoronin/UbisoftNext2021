@@ -5,8 +5,8 @@
 // VIRTUAL has coords from 0.0f to APP_VIRTUAL_[WIDTH/HEIGHT].
 // NATIVE has coords from -1.0f to 1.0f with 0.0f,0.0f as the center of the window.
 #define APP_USE_VIRTUAL_RES		true					// Set true to use virtual coords.					
-#define APP_VIRTUAL_WIDTH		(1024)					// This will be the effective x resolution regardless of actual screen/window res.
-#define APP_VIRTUAL_HEIGHT		(768)					// This will be the effective y resolution regardless of actual screen/window res.
+#define APP_VIRTUAL_WIDTH		(1600)					// This will be the effective x resolution regardless of actual screen/window res.
+#define APP_VIRTUAL_HEIGHT		(1000)					// This will be the effective y resolution regardless of actual screen/window res.
 
 #define APP_MAX_FRAME_RATE		(60.0f)					// Maximum update rate.
 #define APP_INIT_WINDOW_WIDTH	(APP_VIRTUAL_WIDTH)		// Initial window width.
@@ -57,6 +57,9 @@
 
 #define FRAND	(static_cast <float> (rand()) / static_cast <float> (RAND_MAX))
 #define FRAND_RANGE(_MIN_, _MAX_ ) (FRAND * ((_MAX_)-(_MIN_)) + (_MIN_))
-#define PI		(3.14159265359f)
+#define PI			(3.14159265359f)
+#define HALF_PI		(1.570796326795f)
+#define QUARTER_PI		(0.7853981633975f)
+#define TWO_PI		(6.28318530718f)
 
 #endif

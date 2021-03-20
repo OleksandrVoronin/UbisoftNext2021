@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\Sasha\AppData\Local\JetBrains\Rider2020.3\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\Sasha\AppData\Local\JetBrains\Rider2020.3\resharper-host\Local\Transient\Rider\v203\SolutionCaches\_GameTest.-372824420.00" t="ExcludeRecursive" />
+    <e p="C:\Users\Sasha\workspace\UbisoftNext2021" t="IncludeFlat">
+      <e p="GameTest" t="IncludeRecursive">
+        <e p="App" t="Include">
+          <e p="app.cpp" t="Include" />
+          <e p="app.h" t="Include" />
+          <e p="AppSettings.h" t="Include" />
+          <e p="main.cpp" t="Include" />
+          <e p="main.h" t="Include" />
+          <e p="SimpleController.cpp" t="Include" />
+          <e p="SimpleController.h" t="Include" />
+          <e p="SimpleSound.cpp" t="Include" />
+          <e p="SimpleSound.h" t="Include" />
+          <e p="SimpleSprite.cpp" t="Include" />
+          <e p="SimpleSprite.h" t="Include" />
+          <e p="TextureLoader.cpp" t="Include" />
+          <e p="TextureLoader.h" t="Include" />
+        </e>
+        <e p="Camera.cpp" t="Include" />
+        <e p="Camera.h" t="Include" />
+        <e p="Gameplay" t="Include">
+          <e p="ArenaTile.cpp" t="Include" />
+          <e p="ArenaTile.h" t="Include" />
+          <e p="Player.cpp" t="Include" />
+          <e p="Player.h" t="Include" />
+          <e p="TowerDefenseArena.cpp" t="Include" />
+          <e p="TowerDefenseArena.h" t="Include" />
+        </e>
+        <e p="GameTest.cpp" t="Include" />
+        <e p="GameTest.vcxproj" t="IncludeRecursive" />
+        <e p="LineRenderer.cpp" t="Include" />
+        <e p="LineRenderer.h" t="Include" />
+        <e p="Math" t="Include">
+          <e p="Float3.cpp" t="Include" />
+          <e p="Float3.h" t="Include" />
+          <e p="Matrix3.cpp" t="Include" />
+          <e p="Matrix3.h" t="Include" />
+          <e p="Matrix4.cpp" t="Include" />
+          <e p="Matrix4.h" t="Include" />
+          <e p="Ray3.cpp" t="Include" />
+          <e p="Ray3.h" t="Include" />
+        </e>
+        <e p="ReadMe.txt" t="Include" />
+        <e p="stdafx.cpp" t="Include" />
+        <e p="stdafx.h" t="Include" />
+        <e p="targetver.h" t="Include" />
+        <e p="Transform.cpp" t="Include" />
+        <e p="Transform.h" t="Include" />
+        <e p="x64\Debug" t="ExcludeRecursive" />
+      </e>
+      <e p="GameTest.sln" t="IncludeFlat" />
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="x64\Debug" t="ExcludeRecursive" />
+    </e>
+  </component>
+</project>
