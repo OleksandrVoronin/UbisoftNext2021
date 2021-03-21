@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Camera.h"
+#include "../Utils/Camera.h"
 
 
 class TowerDefenseArena;

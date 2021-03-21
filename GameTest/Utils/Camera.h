@@ -1,10 +1,10 @@
 #pragma once
 #include "Transform.h"
-#include "App/app.h"
-#include "App/main.h"
-#include "Math/Float3.h"
-#include "Math/Matrix3.h"
-#include "Math/Ray3.h"
+#include "../App/app.h"
+#include "../App/main.h"
+#include "../Math/Float3.h"
+#include "../Math/Matrix3.h"
+#include "../Math/Ray3.h"
 
 class Camera : public Transform
 {

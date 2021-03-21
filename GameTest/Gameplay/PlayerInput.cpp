@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include "PlayerInput.h"
 #include "TowerDefenseArena.h"
+#include "../App/app.h"
+#include "../App/main.h"
+#include "../Math/Ray3.h"
 
 
 boolean PlayerInput::GetLMousePressedThisFrame() const

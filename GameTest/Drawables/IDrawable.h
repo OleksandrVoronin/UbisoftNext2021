@@ -1,7 +1,8 @@
 #pragma once
-#include "../Camera.h"
-#include "../LineRenderer.h"
-#include "../Transform.h"
+#include "../Math/Float3.h"
+#include "../Utils/Camera.h"
+#include "../Utils/LineRenderer.h"
+#include "../Utils/Transform.h"
 
 class IDrawable : virtual public Transform
 {

@@ -1,6 +1,6 @@
 #pragma once
 #include "UIButton.h"
-#include "../LineRenderer.h"
+#include "../Utils/LineRenderer.h"
 #include "../App/app.h"
 #include "../App/main.h"
 #include "../Gameplay/ArenaTile.h"

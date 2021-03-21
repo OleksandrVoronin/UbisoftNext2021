@@ -20,8 +20,6 @@
           <e p="TextureLoader.cpp" t="Include" />
           <e p="TextureLoader.h" t="Include" />
         </e>
-        <e p="Camera.cpp" t="Include" />
-        <e p="Camera.h" t="Include" />
         <e p="Drawables" t="Include">
           <e p="DrawableCube.cpp" t="Include" />
           <e p="DrawableCube.h" t="Include" />
@@ -68,15 +66,11 @@
         </e>
         <e p="GameTest.cpp" t="Include" />
         <e p="GameTest.vcxproj" t="IncludeRecursive" />
-        <e p="LineRenderer.cpp" t="Include" />
-        <e p="LineRenderer.h" t="Include" />
         <e p="Math" t="Include">
           <e p="Float3.cpp" t="Include" />
           <e p="Float3.h" t="Include" />
           <e p="Matrix3.cpp" t="Include" />
           <e p="Matrix3.h" t="Include" />
-          <e p="Matrix4.cpp" t="Include" />
-          <e p="Matrix4.h" t="Include" />
           <e p="Ray3.cpp" t="Include" />
           <e p="Ray3.h" t="Include" />
         </e>
@@ -84,13 +78,19 @@
         <e p="stdafx.cpp" t="Include" />
         <e p="stdafx.h" t="Include" />
         <e p="targetver.h" t="Include" />
-        <e p="Transform.cpp" t="Include" />
-        <e p="Transform.h" t="Include" />
         <e p="UI" t="Include">
           <e p="HUD.cpp" t="Include" />
           <e p="HUD.h" t="Include" />
           <e p="UIButton.cpp" t="Include" />
           <e p="UIButton.h" t="Include" />
+        </e>
+        <e p="Utils" t="Include">
+          <e p="Camera.cpp" t="Include" />
+          <e p="Camera.h" t="Include" />
+          <e p="LineRenderer.cpp" t="Include" />
+          <e p="LineRenderer.h" t="Include" />
+          <e p="Transform.cpp" t="Include" />
+          <e p="Transform.h" t="Include" />
         </e>
         <e p="x64\Debug" t="ExcludeRecursive" />
       </e>

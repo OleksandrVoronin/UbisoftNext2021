@@ -1,7 +1,7 @@
 #pragma once
 #include "IBuilding.h"
-#include "../../Camera.h"
-#include "../../LineRenderer.h"
+#include "../../Utils/Camera.h"
+#include "../../Utils/LineRenderer.h"
 #include "../../Drawables/DrawablePyramid.h"
 
 class CoreBuilding : public IBuilding

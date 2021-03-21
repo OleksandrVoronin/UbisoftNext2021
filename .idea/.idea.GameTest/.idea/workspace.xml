@@ -34,9 +34,7 @@
       <option value="$PROJECT_DIR$/GameTest/UI/UIButton.cpp" />
       <option value="$PROJECT_DIR$/GameTest/LineRenderer.cpp" />
       <option value="$PROJECT_DIR$/GameTest/Gameplay/ArenaTile.h" />
-      <option value="$PROJECT_DIR$/GameTest/Gameplay/PlayerInput.cpp" />
       <option value="$PROJECT_DIR$/GameTest/Transform.h" />
-      <option value="$PROJECT_DIR$/GameTest/Gameplay/PlayerInput.h" />
       <option value="$PROJECT_DIR$/GameTest/Gameplay/Buildings/ITower.h" />
       <option value="$PROJECT_DIR$/GameTest/GameTest.cpp" />
       <option value="$PROJECT_DIR$/GameTest/Gameplay/TowerDefenseArena.h" />
@@ -44,13 +42,11 @@
       <option value="$PROJECT_DIR$/GameTest/Drawables/DrawablePyramid.h" />
       <option value="$PROJECT_DIR$/GameTest/Drawables/DrawableCube.cpp" />
       <option value="$PROJECT_DIR$/GameTest/Drawables/DrawableCube.h" />
-      <option value="$PROJECT_DIR$/GameTest/Drawables/IDrawable.h" />
       <option value="$PROJECT_DIR$/GameTest/Drawables/DrawablePyramid.cpp" />
       <option value="$PROJECT_DIR$/GameTest/Gameplay/TowerDefenseArena.cpp" />
       <option value="$PROJECT_DIR$/GameTest/UI/UIButton.h" />
       <option value="$PROJECT_DIR$/GameTest/Drawables/DrawableSnowflake.h" />
       <option value="$PROJECT_DIR$/GameTest/UI/HUD.h" />
-      <option value="$PROJECT_DIR$/GameTest/Gameplay/Buildings/IBuilding.h" />
       <option value="$PROJECT_DIR$/GameTest/Drawables/DrawableRhombus.h" />
       <option value="$PROJECT_DIR$/GameTest/Drawables/DrawableGem.h" />
       <option value="$PROJECT_DIR$/GameTest/Gameplay/Buildings/CoreBuilding.h" />
@@ -62,7 +58,13 @@
       <option value="$PROJECT_DIR$/GameTest/Gameplay/PlayerState.h" />
       <option value="$PROJECT_DIR$/GameTest/Gameplay/Buildings/TowerDamageIncrease.h" />
       <option value="$PROJECT_DIR$/GameTest/Gameplay/Buildings/TowerBurst.h" />
+      <option value="$PROJECT_DIR$/GameTest/Gameplay/PlayerInput.cpp" />
       <option value="$PROJECT_DIR$/GameTest/UI/HUD.cpp" />
+      <option value="$PROJECT_DIR$/GameTest/Drawables/IDrawable.h" />
+      <option value="$PROJECT_DIR$/GameTest/Gameplay/Buildings/IBuilding.h" />
+      <option value="$PROJECT_DIR$/GameTest/Utils/Transform.h" />
+      <option value="$PROJECT_DIR$/GameTest/Utils/Camera.h" />
+      <option value="$PROJECT_DIR$/GameTest/Gameplay/PlayerInput.h" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1pyosqtYhjuJgpMj349NnmlL3LO" />
@@ -134,7 +136,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1616164901053</updated>
-      <workItem from="1616164914971" duration="100258000" />
+      <workItem from="1616164914971" duration="100558000" />
     </task>
     <servers />
   </component>

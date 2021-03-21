@@ -2,9 +2,8 @@
 #include <algorithm>
 #include <set>
 
-#include "App/app.h"
-#include "App/main.h"
-#include "Math/Float3.h"
+#include "../App/app.h"
+#include "../Math/Float3.h"
 
 // Slightly Better OpenGL Free Renderer
 class LineRenderer

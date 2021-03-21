@@ -4,6 +4,7 @@
 #include "../Gameplay/Buildings/TowerAOE.h"
 #include "../Gameplay/Buildings/TowerBurst.h"
 #include "../Gameplay/Buildings/TowerDamageIncrease.h"
+#include "../Utils/LineRenderer.h"
 
 extern double GetCounter();
 

@@ -2,8 +2,8 @@
 #include <dsound.h>
 #include <vector>
 
-#include "Math/Float3.h"
-#include "Math/Matrix3.h"
+#include "../Math/Float3.h"
+#include "../Math/Matrix3.h"
 
 class Transform
 {

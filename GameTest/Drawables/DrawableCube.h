@@ -2,7 +2,7 @@
 #include <memory>
 
 #include "IDrawable.h"
-#include "../LineRenderer.h"
+#include "../Utils/LineRenderer.h"
 #include "../App/app.h"
 
 class DrawableCube : public IDrawable

@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "LineRenderer.h"
+#include "../App/main.h"
 
 #include <algorithm>
 
@@ -10,7 +11,9 @@ void LineRenderer::RenderFrame()
     {
         for (int i = 0; i < WINDOW_HEIGHT; i++)
         {
-            App::DrawLine(0, i, WINDOW_WIDTH, i, fogColor.x, fogColor.y, fogColor.z);
+            App::DrawLine(0, static_cast<float>(i), static_cast<float>(WINDOW_WIDTH), static_cast<float>(i), fogColor.x,
+                          fogColor.y,
+                          fogColor.z);
         }
     }
 

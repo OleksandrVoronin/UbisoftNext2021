@@ -4,8 +4,8 @@
 
 #include "ArenaTile.h"
 #include "PlayerState.h"
-#include "../Camera.h"
-#include "../LineRenderer.h"
+#include "../Utils/Camera.h"
+#include "../Utils/LineRenderer.h"
 #include "../Math/Float3.h"
 #include "Buildings/CoreBuilding.h"
 
