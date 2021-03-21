@@ -23,7 +23,14 @@ public:
         RecalculateWorldPRS();
     }
 
-    virtual ~Transform() = default;
+    virtual ~Transform()
+    {
+        if (this->parent != nullptr)
+        {
+            this->parent->children.erase(
+                std::remove(this->parent->children.begin(), this->parent->children.end(), this));
+        }
+    }
 
     Float3 GetWorldPosition() const
     {

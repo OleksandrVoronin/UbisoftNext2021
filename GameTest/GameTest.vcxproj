@@ -184,10 +184,24 @@
     <ClInclude Include="App\SimpleSprite.h" />
     <ClInclude Include="App\TextureLoader.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Drawables\DrawableCube.h" />
+    <ClInclude Include="Drawables\DrawableGem.h" />
+    <ClInclude Include="Drawables\DrawablePyramid.h" />
+    <ClInclude Include="Drawables\DrawableRhombus.h" />
+    <ClInclude Include="Drawables\DrawableSnowflake.h" />
+    <ClInclude Include="Drawables\IDrawable.h" />
     <ClInclude Include="Gameplay\ArenaTile.h" />
     <ClInclude Include="Gameplay\Buildings\CoreBuilding.h" />
+    <ClInclude Include="Gameplay\Buildings\IAreaTower.h" />
     <ClInclude Include="Gameplay\Buildings\IBuilding.h" />
-    <ClInclude Include="Gameplay\Player.h" />
+    <ClInclude Include="Gameplay\Buildings\IShootingTower.h" />
+    <ClInclude Include="Gameplay\Buildings\TowerAOE.h" />
+    <ClInclude Include="Gameplay\Buildings\TowerBasic.h" />
+    <ClInclude Include="Gameplay\Buildings\TowerBurst.h" />
+    <ClInclude Include="Gameplay\Buildings\TowerDamageIncrease.h" />
+    <ClInclude Include="Gameplay\Buildings\TowerFrost.h" />
+    <ClInclude Include="Gameplay\PlayerInput.h" />
+    <ClInclude Include="Gameplay\PlayerState.h" />
     <ClInclude Include="Gameplay\TowerDefenseArena.h" />
     <ClInclude Include="LineRenderer.h" />
     <ClInclude Include="Math\Float3.h" />
@@ -197,6 +211,8 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Transform.h" />
+    <ClInclude Include="UI\HUD.h" />
+    <ClInclude Include="UI\UIButton.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="App\app.cpp" />
@@ -206,10 +222,24 @@
     <ClCompile Include="App\SimpleSprite.cpp" />
     <ClCompile Include="App\TextureLoader.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Drawables\DrawableCube.cpp" />
+    <ClCompile Include="Drawables\DrawableGem.cpp" />
+    <ClCompile Include="Drawables\DrawablePyramid.cpp" />
+    <ClCompile Include="Drawables\DrawableRhombus.cpp" />
+    <ClCompile Include="Drawables\DrawableSnowflake.cpp" />
+    <ClCompile Include="Drawables\IDrawable.cpp" />
     <ClCompile Include="Gameplay\ArenaTile.cpp" />
     <ClCompile Include="Gameplay\Buildings\CoreBuilding.cpp" />
+    <ClCompile Include="Gameplay\Buildings\IAreaTower.cpp" />
     <ClCompile Include="Gameplay\Buildings\IBuilding.cpp" />
-    <ClCompile Include="Gameplay\Player.cpp" />
+    <ClCompile Include="Gameplay\Buildings\IShootingTower.cpp" />
+    <ClCompile Include="Gameplay\Buildings\TowerAOE.cpp" />
+    <ClCompile Include="Gameplay\Buildings\TowerBasic.cpp" />
+    <ClCompile Include="Gameplay\Buildings\TowerBurst.cpp" />
+    <ClCompile Include="Gameplay\Buildings\TowerDamageIncrease.cpp" />
+    <ClCompile Include="Gameplay\Buildings\TowerFrost.cpp" />
+    <ClCompile Include="Gameplay\PlayerInput.cpp" />
+    <ClCompile Include="Gameplay\PlayerState.cpp" />
     <ClCompile Include="Gameplay\TowerDefenseArena.cpp" />
     <ClCompile Include="GameTest.cpp" />
     <ClCompile Include="LineRenderer.cpp" />
@@ -224,6 +254,8 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Transform.cpp" />
+    <ClCompile Include="UI\HUD.cpp" />
+    <ClCompile Include="UI\UIButton.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

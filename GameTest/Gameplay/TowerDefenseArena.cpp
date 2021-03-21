@@ -1,34 +1,50 @@
 #include "stdafx.h"
 #include "TowerDefenseArena.h"
-#include "Player.h"
+#include "PlayerInput.h"
+#include "../UI/HUD.h"
 
-TowerDefenseArena::TowerDefenseArena(int cellsX, int cellsZ, std::vector<Float3> map) : cellsX{cellsX}, cellsZ{cellsZ}
+TowerDefenseArena::TowerDefenseArena(int cellsX, int cellsZ, std::vector<Float3> map) : cellCountX{cellsX},
+    cellCountZ{cellsZ}
 {
-    root = new Transform(Float3(0, 0, 0));
+    playerState = new PlayerState();
+
+    worldRoot = new Transform(Float3(0, 0, 0));
 
     ParseMap(map);
 
-    camera = new Camera(root, Float3{worldSizeX / 2, worldSizeZ * 1.5f, -worldSizeZ}, 1.4f);
+    camera = new Camera(worldRoot, Float3{arenaSizeX / 2, arenaSizeZ * 1.5f, -arenaSizeZ}, 1.4f);
     camera->RotateAbsolute(QUARTER_PI, 0, 0);
     camera->UpdateTransform();
 
     lineRenderer = new LineRenderer(Float3(1, 1, 1));
 
-    player = new Player(this);
+    playerInput = new PlayerInput(this);
+
+    hud = new HUD(this);
 }
 
 TowerDefenseArena::~TowerDefenseArena()
 {
-    delete root;
     delete camera;
     delete lineRenderer;
-    delete player;
+    delete playerInput;
+    delete playerState;
+    delete worldRoot;
 }
 
 void TowerDefenseArena::Update(float deltaTime) const
 {
-    player->Update();
-    root->UpdateTransform();
+    playerInput->Update();
+    hud->Update();
+
+    for (std::unordered_set<IBuilding*>::iterator itr = buildings.begin(); itr != buildings.end(); ++itr)
+    {
+        (*itr)->Update(deltaTime);
+    }
+
+    worldRoot->UpdateTransform();
+
+    playerInput->LateUpdate();
 }
 
 void TowerDefenseArena::Render() const
@@ -36,12 +52,13 @@ void TowerDefenseArena::Render() const
     RenderArena();
     //VisualizePath();
 
-    for (int i = 0; i < buildings.size(); i++)
+    for (std::unordered_set<IBuilding*>::iterator itr = buildings.begin(); itr != buildings.end(); ++itr)
     {
-        buildings[i]->Render(lineRenderer, camera);
+        (*itr)->Render(lineRenderer, camera);
     }
 
-    player->Render();
-
     lineRenderer->RenderFrame();
+
+    // HUD needs to render as a second pass, on top of the game
+    hud->Render();
 }

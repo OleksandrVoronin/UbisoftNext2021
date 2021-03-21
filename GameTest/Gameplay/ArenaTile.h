@@ -17,6 +17,11 @@ public:
         return position;
     }
 
+    boolean ValidForBuildingPlacement() const
+    {
+        return !GetIsPartOfThePath() && (GetBuilding() == nullptr);
+    }
+
     boolean GetIsPartOfThePath() const
     {
         return partOfThePath;
@@ -25,6 +30,11 @@ public:
     IBuilding* GetBuilding() const
     {
         return building;
+    }
+
+    void RemoveBuilding()
+    {
+        building = nullptr;
     }
 
     void AddBuilding(IBuilding* building)

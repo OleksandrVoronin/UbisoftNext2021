@@ -17,7 +17,7 @@ TowerDefenseArena* arena;
 //------------------------------------------------------------------------
 void Init()
 {
-    const std::vector<Float3> map {
+    const std::vector<Float3> map{
         Float3(10, 11),
         Float3(10, 8),
         Float3(6, 8),
@@ -59,4 +59,5 @@ void Render()
 //------------------------------------------------------------------------
 void Shutdown()
 {
+    delete arena;
 }

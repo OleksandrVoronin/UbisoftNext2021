@@ -22,17 +22,47 @@
         </e>
         <e p="Camera.cpp" t="Include" />
         <e p="Camera.h" t="Include" />
+        <e p="Drawables" t="Include">
+          <e p="DrawableCube.cpp" t="Include" />
+          <e p="DrawableCube.h" t="Include" />
+          <e p="DrawableGem.cpp" t="Include" />
+          <e p="DrawableGem.h" t="Include" />
+          <e p="DrawablePyramid.cpp" t="Include" />
+          <e p="DrawablePyramid.h" t="Include" />
+          <e p="DrawableRhombus.cpp" t="Include" />
+          <e p="DrawableRhombus.h" t="Include" />
+          <e p="DrawableSnowflake.cpp" t="Include" />
+          <e p="DrawableSnowflake.h" t="Include" />
+          <e p="IDrawable.cpp" t="Include" />
+          <e p="IDrawable.h" t="Include" />
+        </e>
         <e p="Gameplay" t="Include">
           <e p="ArenaTile.cpp" t="Include" />
           <e p="ArenaTile.h" t="Include" />
           <e p="Buildings" t="Include">
             <e p="CoreBuilding.cpp" t="Include" />
             <e p="CoreBuilding.h" t="Include" />
+            <e p="IAreaTower.cpp" t="Include" />
+            <e p="IAreaTower.h" t="Include" />
             <e p="IBuilding.cpp" t="Include" />
             <e p="IBuilding.h" t="Include" />
+            <e p="IShootingTower.cpp" t="Include" />
+            <e p="IShootingTower.h" t="Include" />
+            <e p="TowerAOE.cpp" t="Include" />
+            <e p="TowerAOE.h" t="Include" />
+            <e p="TowerBasic.cpp" t="Include" />
+            <e p="TowerBasic.h" t="Include" />
+            <e p="TowerBurst.cpp" t="Include" />
+            <e p="TowerBurst.h" t="Include" />
+            <e p="TowerDamageIncrease.cpp" t="Include" />
+            <e p="TowerDamageIncrease.h" t="Include" />
+            <e p="TowerFrost.cpp" t="Include" />
+            <e p="TowerFrost.h" t="Include" />
           </e>
-          <e p="Player.cpp" t="Include" />
-          <e p="Player.h" t="Include" />
+          <e p="PlayerInput.cpp" t="Include" />
+          <e p="PlayerInput.h" t="Include" />
+          <e p="PlayerState.cpp" t="Include" />
+          <e p="PlayerState.h" t="Include" />
           <e p="TowerDefenseArena.cpp" t="Include" />
           <e p="TowerDefenseArena.h" t="Include" />
         </e>
@@ -56,6 +86,12 @@
         <e p="targetver.h" t="Include" />
         <e p="Transform.cpp" t="Include" />
         <e p="Transform.h" t="Include" />
+        <e p="UI" t="Include">
+          <e p="HUD.cpp" t="Include" />
+          <e p="HUD.h" t="Include" />
+          <e p="UIButton.cpp" t="Include" />
+          <e p="UIButton.h" t="Include" />
+        </e>
         <e p="x64\Debug" t="ExcludeRecursive" />
       </e>
       <e p="GameTest.sln" t="IncludeFlat" />
