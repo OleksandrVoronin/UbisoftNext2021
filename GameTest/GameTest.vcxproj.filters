@@ -23,6 +23,114 @@
     <ClCompile Include="App\TextureLoader.cpp">
       <Filter>API</Filter>
     </ClCompile>
+    <ClCompile Include="Drawables\DrawableCube.cpp">
+      <Filter>Drawables</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawables\DrawableGem.cpp">
+      <Filter>Drawables</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawables\DrawablePyramid.cpp">
+      <Filter>Drawables</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawables\DrawableRhombus.cpp">
+      <Filter>Drawables</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawables\DrawableSnowflake.cpp">
+      <Filter>Drawables</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawables\IDrawable.cpp">
+      <Filter>Drawables</Filter>
+    </ClCompile>
+    <ClCompile Include="Gameplay\Enemies\EnemyBoss.cpp">
+      <Filter>Gameplay\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Gameplay\Enemies\EnemyCorner.cpp">
+      <Filter>Gameplay\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Gameplay\Enemies\EnemyHeavy.cpp">
+      <Filter>Gameplay\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Gameplay\Enemies\EnemyScout.cpp">
+      <Filter>Gameplay\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Gameplay\Enemies\EnemySoldier.cpp">
+      <Filter>Gameplay\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Gameplay\EnemySpawner.cpp">
+      <Filter>Gameplay\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Gameplay\Buildings\IBuilding.cpp">
+      <Filter>Gameplay\Buildings</Filter>
+    </ClCompile>
+    <ClCompile Include="Gameplay\Buildings\IAreaEffectTower.cpp">
+      <Filter>Gameplay\Buildings</Filter>
+    </ClCompile>
+    <ClCompile Include="Gameplay\Enemies\IEnemy.cpp">
+      <Filter>Gameplay\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Gameplay\Buildings\IShootingTower.cpp">
+      <Filter>Gameplay\Buildings</Filter>
+    </ClCompile>
+    <ClCompile Include="Gameplay\Enemies\IWaypointMover.cpp">
+      <Filter>Gameplay\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Gameplay\Buildings\CoreBuilding.cpp">
+      <Filter>Gameplay\Buildings</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Ray3.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Matrix3.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Float3.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\HUD.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\UIButton.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\Transform.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\Camera.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\LineRenderer.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Gameplay\Buildings\TowerBasic.cpp">
+      <Filter>Gameplay\Buildings</Filter>
+    </ClCompile>
+    <ClCompile Include="Gameplay\Buildings\TowerBurst.cpp">
+      <Filter>Gameplay\Buildings</Filter>
+    </ClCompile>
+    <ClCompile Include="Gameplay\Buildings\TowerDamageIncrease.cpp">
+      <Filter>Gameplay\Buildings</Filter>
+    </ClCompile>
+    <ClCompile Include="Gameplay\TowerDefenseArena.cpp">
+      <Filter>Gameplay\Buildings</Filter>
+    </ClCompile>
+    <ClCompile Include="Gameplay\Buildings\TowerFrost.cpp">
+      <Filter>Gameplay\Buildings</Filter>
+    </ClCompile>
+    <ClCompile Include="Gameplay\Buildings\TowerSplash.cpp">
+      <Filter>Gameplay\Buildings</Filter>
+    </ClCompile>
+    <ClCompile Include="Gameplay\WaveChoreographer.cpp">
+      <Filter>Gameplay</Filter>
+    </ClCompile>
+    <ClCompile Include="Gameplay\PlayerInput.cpp">
+      <Filter>Gameplay</Filter>
+    </ClCompile>
+    <ClCompile Include="Gameplay\ArenaTile.cpp">
+      <Filter>Gameplay</Filter>
+    </ClCompile>
+    <ClCompile Include="Gameplay\PlayerState.cpp">
+      <Filter>Gameplay</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App\app.h">
@@ -52,6 +160,114 @@
     <ClInclude Include="App\TextureLoader.h">
       <Filter>API</Filter>
     </ClInclude>
+    <ClInclude Include="Drawables\DrawableCube.h">
+      <Filter>Drawables</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawables\DrawableGem.h">
+      <Filter>Drawables</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawables\DrawablePyramid.h">
+      <Filter>Drawables</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawables\DrawableRhombus.h">
+      <Filter>Drawables</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawables\DrawableSnowflake.h">
+      <Filter>Drawables</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawables\IDrawable.h">
+      <Filter>Drawables</Filter>
+    </ClInclude>
+    <ClInclude Include="Gameplay\Enemies\EnemyBoss.h">
+      <Filter>Gameplay\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Gameplay\Enemies\EnemyCorner.h">
+      <Filter>Gameplay\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Gameplay\Enemies\EnemyHeavy.h">
+      <Filter>Gameplay\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Gameplay\Enemies\EnemyScout.h">
+      <Filter>Gameplay\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Gameplay\Enemies\EnemySoldier.h">
+      <Filter>Gameplay\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Gameplay\EnemySpawner.h">
+      <Filter>Gameplay\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Gameplay\Buildings\IBuilding.h">
+      <Filter>Gameplay\Buildings</Filter>
+    </ClInclude>
+    <ClInclude Include="Gameplay\Buildings\IAreaEffectTower.h">
+      <Filter>Gameplay\Buildings</Filter>
+    </ClInclude>
+    <ClInclude Include="Gameplay\Enemies\IEnemy.h">
+      <Filter>Gameplay\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Gameplay\Buildings\IShootingTower.h">
+      <Filter>Gameplay\Buildings</Filter>
+    </ClInclude>
+    <ClInclude Include="Gameplay\Enemies\IWaypointMover.h">
+      <Filter>Gameplay\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Gameplay\Buildings\CoreBuilding.h">
+      <Filter>Gameplay\Buildings</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Ray3.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Matrix3.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Float3.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\UIButton.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\HUD.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\Transform.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\Camera.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\LineRenderer.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Gameplay\Buildings\TowerBasic.h">
+      <Filter>Gameplay\Buildings</Filter>
+    </ClInclude>
+    <ClInclude Include="Gameplay\Buildings\TowerBurst.h">
+      <Filter>Gameplay\Buildings</Filter>
+    </ClInclude>
+    <ClInclude Include="Gameplay\Buildings\TowerDamageIncrease.h">
+      <Filter>Gameplay\Buildings</Filter>
+    </ClInclude>
+    <ClInclude Include="Gameplay\TowerDefenseArena.h">
+      <Filter>Gameplay\Buildings</Filter>
+    </ClInclude>
+    <ClInclude Include="Gameplay\Buildings\TowerFrost.h">
+      <Filter>Gameplay\Buildings</Filter>
+    </ClInclude>
+    <ClInclude Include="Gameplay\Buildings\TowerSplash.h">
+      <Filter>Gameplay\Buildings</Filter>
+    </ClInclude>
+    <ClInclude Include="Gameplay\WaveChoreographer.h">
+      <Filter>Gameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="Gameplay\PlayerInput.h">
+      <Filter>Gameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="Gameplay\ArenaTile.h">
+      <Filter>Gameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="Gameplay\PlayerState.h">
+      <Filter>Gameplay</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -59,6 +275,27 @@
   <ItemGroup>
     <Filter Include="API">
       <UniqueIdentifier>{3e1485bf-3449-4966-8760-976ee866544b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Drawables">
+      <UniqueIdentifier>{5ddfa801-c787-4a63-8d5f-270821f48e1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Gameplay">
+      <UniqueIdentifier>{6fc4eca5-ee92-4aa0-b4c7-99acec2b770f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Gameplay\Enemies">
+      <UniqueIdentifier>{fa56325d-4b26-4671-9047-8de188ed1c76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Gameplay\Buildings">
+      <UniqueIdentifier>{b25f0de8-5b6f-4f7c-a0e4-fced17cc48c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math">
+      <UniqueIdentifier>{0961e0fc-b5a6-4781-b044-6a917fc6bfdc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{25444bf5-6308-4b41-bc95-e92676c859e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{17a584f0-8cdb-4989-b85f-bcb1aeceb5e3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
