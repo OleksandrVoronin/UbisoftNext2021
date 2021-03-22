@@ -4,6 +4,7 @@
 
 #include "../Math/Float3.h"
 #include "../Math/Matrix3.h"
+#include <algorithm>
 
 class Transform
 {
