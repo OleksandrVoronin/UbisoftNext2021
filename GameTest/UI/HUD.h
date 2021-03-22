@@ -82,4 +82,9 @@ private:
                        GLUT_BITMAP_HELVETICA_18);
         }
     }
+
+    void RenderInfoLabels();
+    void RenderBuildButtons();
+    void RenderMapMouseSelection();
+    void RenderGrabbedObjects();
 };

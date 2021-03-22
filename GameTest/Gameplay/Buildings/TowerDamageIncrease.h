@@ -1,17 +1,17 @@
 #pragma once
-#include "TowerAOE.h"
+#include "TowerSplash.h"
 #include "TowerBasic.h"
 #include "TowerFrost.h"
 #include "../../Drawables/DrawableRhombus.h"
 
-class TowerDamageIncrease : public IAreaTower
+class TowerDamageIncrease : public IAreaEffectTower
 {
 public:
     TowerDamageIncrease() : TowerDamageIncrease(Float3(1.f, 0.5f, 0.1f))
     {
     }
 
-    TowerDamageIncrease(Float3 baseColor) : IAreaTower(baseColor)
+    TowerDamageIncrease(Float3 baseColor) : IAreaEffectTower(baseColor)
     {
         rotationArm = new Transform(Float3(), this);
         rhombuses[0] = new DrawableRhombus(Float3(), rotationArm, 0.5f);
@@ -20,9 +20,20 @@ public:
 
     ~TowerDamageIncrease()
     {
+        RemoveEffectFromAllTiles();
         delete rhombuses[0];
         delete rhombuses[1];
         delete rotationArm;
+    }
+
+    void ApplyEffectToTile(ArenaTile* tile) override
+    {
+        tile->SetDamageTakenMultiplier(tile->GetDamageTakenMultiplier() * GetDamageIncreaseMultiplier());
+    }
+
+    void RemoveEffectFromTile(ArenaTile* tile) override
+    {
+        tile->SetDamageTakenMultiplier(tile->GetDamageTakenMultiplier() * (1.0f / GetDamageIncreaseMultiplier()));
     }
 
     void Update(float deltaTime) override
@@ -49,16 +60,22 @@ public:
 
     std::string GetName() override
     {
-        return "Corruption Tower";
+        return "Sigil of Desolation";
     }
 
     std::vector<std::string> GetDescription() override
     {
         return {
-            "Bread and butter of your defense",
-            "Damage: " + std::to_string(static_cast<int>(GetDamage())) + (IsUpgradeable() ? " (+4 next level)" : ""),
-            "Range: " + std::to_string(GetRange())
+            "Weakens all the enemies around",
+            "Damage: 0",
+            "Range: " + std::to_string(static_cast<int>(GetRange())) + (IsUpgradeable() ? " (+1 next level)" : ""),
+            "Effects from multiple towers stack."
         };
+    }
+
+    float GetDamageIncreaseMultiplier() const
+    {
+        return 1.5f;
     }
 
     int GetCost() override
@@ -68,17 +85,17 @@ public:
 
     int GetRange() override
     {
-        return 2;
+        return 1 + GetLevel();
     }
 
     float GetDamage() override
     {
-        return 10.0f + 4.0f * GetLevel();
+        return 0;
     }
 
     float GetUpgradeLevelScale() const override
     {
-        return 0.5f + GetLevel() * 0.25f;;
+        return 0.5f + GetLevel() * 0.25f;
     }
 
     int GetMaxLevel() const override

@@ -6,12 +6,12 @@
 class TowerBasic : public IShootingTower
 {
 public:
-    TowerBasic() : TowerBasic(Float3(1, 0, 0))
+    TowerBasic() : TowerBasic(Float3(1, 0, 0), 1.f)
     {
     }
 
-    TowerBasic(Float3 baseColor)
-        : IShootingTower(baseColor)
+    TowerBasic(Float3 baseColor, float shotCooldown)
+        : IShootingTower(baseColor, shotCooldown)
     {
         gemStone = new DrawableRhombus(Float3(), this, 1);
     }
@@ -24,13 +24,40 @@ public:
     void Render(LineRenderer* renderer, Camera* camera) override
     {
         IBuilding::Render(renderer, camera);
+        RenderShotTrail(shotLocation, renderer, camera, baseColor,
+                        Float3(0, GetUpgradeLevelScale() * renderScale / 3.0f));
         gemStone->Render(renderer, camera, baseColor);
     }
 
     void Update(float deltaTime) override
     {
+        IShootingTower::Update(deltaTime);
+
         SetScale(GetUpgradeLevelScale());
         gemStone->RotateBy(0, deltaTime, 0);
+    }
+
+    boolean TryShoot() override
+    {
+        if (!target)
+        {
+            target = AcquireTarget();
+        }
+        else
+        {
+            if (tilesInRange.count(target->GetCurrentTile()) == 0)
+            {
+                target = nullptr;
+            }
+            else
+            {
+                shotLocation = target->GetWorldPosition();
+                target->Damage(GetDamage());
+                return true;
+            }
+        }
+
+        return false;
     }
 
     void SetRenderScale(float renderScale) override
@@ -42,15 +69,17 @@ public:
 
     std::string GetName() override
     {
-        return "Basic Tower";
+        return "Defense Tower";
     }
 
     std::vector<std::string> GetDescription() override
     {
         return {
-            "Bread and butter of your defense",
+            "Primary defense tower.",
+            "Nothing flashy but does the job.",
             "Damage: " + std::to_string(static_cast<int>(GetDamage())) + (IsUpgradeable() ? " (+4 next level)" : ""),
-            "Range: " + std::to_string(GetRange())
+            "Range: " + std::to_string(static_cast<int>(GetRange())) + (IsUpgradeable() ? " (+1 next level)" : ""),
+            "Fire rate: Medium"
         };
     }
 
@@ -61,17 +90,17 @@ public:
 
     int GetRange() override
     {
-        return 2;
+        return 1 + GetLevel();
     }
 
     float GetDamage() override
     {
-        return 10.0f + 4.0f * GetLevel();
+        return 5.0f + 4.0f * GetLevel();
     }
 
     float GetUpgradeLevelScale() const override
     {
-        return 0.5f + GetLevel() * 0.25f;;
+        return 0.5f + GetLevel() * 0.25f;
     }
 
     int GetMaxLevel() const override

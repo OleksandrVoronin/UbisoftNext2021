@@ -26,16 +26,16 @@ void DrawableCube::Render(LineRenderer* lineRenderer, Camera* camera, Float3 col
     const Float3 v7 = camera->WorldToCamera(vertices[6]->GetWorldPosition());
     const Float3 v8 = camera->WorldToCamera(vertices[7]->GetWorldPosition());
 
-    lineRenderer->DrawDottedLineFogApplied(&v1, &v2, Float3(1, 1, 1), size);
-    lineRenderer->DrawDottedLineFogApplied(&v2, &v4, Float3(1, 1, 1), size);
-    lineRenderer->DrawDottedLineFogApplied(&v4, &v3, Float3(1, 1, 1), size);
-    lineRenderer->DrawDottedLineFogApplied(&v3, &v1, Float3(1, 1, 1), size);
-    lineRenderer->DrawDottedLineFogApplied(&v5, &v6, Float3(1, 1, 1), size);
-    lineRenderer->DrawDottedLineFogApplied(&v6, &v8, Float3(1, 1, 1), size);
-    lineRenderer->DrawDottedLineFogApplied(&v8, &v7, Float3(1, 1, 1), size);
-    lineRenderer->DrawDottedLineFogApplied(&v7, &v5, Float3(1, 1, 1), size);
-    lineRenderer->DrawDottedLineFogApplied(&v1, &v5, Float3(1, 1, 1), size);
-    lineRenderer->DrawDottedLineFogApplied(&v2, &v6, Float3(1, 1, 1), size);
-    lineRenderer->DrawDottedLineFogApplied(&v4, &v8, Float3(1, 1, 1), size);
-    lineRenderer->DrawDottedLineFogApplied(&v3, &v7, Float3(1, 1, 1), size);
+    lineRenderer->DrawLineFogApplied(&v1, &v2, Float3(1, 1, 1));
+    lineRenderer->DrawLineFogApplied(&v2, &v4, Float3(1, 1, 1));
+    lineRenderer->DrawLineFogApplied(&v4, &v3, Float3(1, 1, 1));
+    lineRenderer->DrawLineFogApplied(&v3, &v1, Float3(1, 1, 1));
+    lineRenderer->DrawLineFogApplied(&v5, &v6, Float3(1, 1, 1));
+    lineRenderer->DrawLineFogApplied(&v6, &v8, Float3(1, 1, 1));
+    lineRenderer->DrawLineFogApplied(&v8, &v7, Float3(1, 1, 1));
+    lineRenderer->DrawLineFogApplied(&v7, &v5, Float3(1, 1, 1));
+    lineRenderer->DrawLineFogApplied(&v1, &v5, Float3(1, 1, 1));
+    lineRenderer->DrawLineFogApplied(&v2, &v6, Float3(1, 1, 1));
+    lineRenderer->DrawLineFogApplied(&v4, &v8, Float3(1, 1, 1));
+    lineRenderer->DrawLineFogApplied(&v3, &v7, Float3(1, 1, 1));
 }

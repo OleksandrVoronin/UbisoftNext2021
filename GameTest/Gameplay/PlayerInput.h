@@ -1,5 +1,10 @@
 #pragma once
 
+#include <set>
+#include <unordered_map>
+#include <unordered_set>
+
+
 #include "../Utils/Camera.h"
 
 
@@ -23,13 +28,10 @@ public:
         return mouseXZProjection;
     }
 
-    boolean GetLMousePressedThisFrame() const;
-    boolean GetLMouseReleasedThisFrame() const;
-
-    boolean GetRMousePressedThisFrame() const;
-    boolean GetRMouseReleasedThisFrame() const;
-
     PlayerInput(TowerDefenseArena* arena);
+
+    boolean GetKeyPressedThisFrame(int keycode);
+    boolean GetKeyReleasedThisFrame(int keycode);
 
     void Update();
 
@@ -42,10 +44,12 @@ private:
     Float3 mouseXZProjection;
     Float3 mouseScreenPosition;
 
-    boolean lastLMousePressedState = false;
-    boolean lastRMousePressedState = false;
-    boolean currentLMousePressedState = false;
-    boolean currentRMousePressedState = false;
+    std::unordered_set<int> keysToTrack{
+        VK_LBUTTON, VK_RBUTTON, VK_SPACE, 'A', 'D', 'R'
+    };
+
+    std::unordered_map<int, boolean> currentState;
+    std::unordered_map<int, boolean> lastState;
 
     void CalculateGridSelection();
 };

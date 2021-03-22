@@ -1,9 +1,12 @@
 #pragma once
+#include "../ArenaTile.h"
 #include "../../Math/Float3.h"
 #include "../../Utils/Camera.h"
 #include "../../Utils/LineRenderer.h"
 #include "../../Utils/Transform.h"
 
+
+class TowerDefenseArena;
 double GetCounter();
 
 class IBuilding : public Transform
@@ -19,42 +22,36 @@ public:
 
     virtual ~IBuilding() = default;
 
+    // Lifetime events to redefine in children if needed.
+    virtual void OnPlaced()
+    {
+        UpdateTilesInRange();
+    }
+
+    virtual void OnWillUpgrade()
+    {
+    }
+
+    virtual void OnUpgraded()
+    {
+        UpdateTilesInRange();
+    }
+
+    // Core updates
+    virtual void Update(float deltaTime) = 0;
+    virtual void Render(LineRenderer* renderer, Camera* camera);
+
+    // Renders a covered-range visual around the building
+    virtual void RenderRange(LineRenderer* renderer, Camera* camera);
+
     virtual void SetRenderScale(float renderScale)
     {
         this->renderScale = renderScale;
     }
 
-    virtual void Render(LineRenderer* renderer, Camera* camera)
-    {
-        RenderBuildingBase(renderer, camera);
-    }
+    void SetTile(ArenaTile* tile);
 
-    virtual void RenderRange(LineRenderer* renderer, Camera* camera)
-    {
-        if (GetRange() <= 0) return;
-
-        const float rangeProportionalOffset = renderScale / 200.f / GetRange();
-
-        // Render a few times with offsets to mimic thicker lines
-        for (int i = 0; i < 3; i++)
-        {
-            const float halfOfSide = ((GetRange() * 2 + 1) * renderScale) / 2.f * (1 - rangeProportionalOffset * i);
-
-            const Float3 baseA = camera->WorldToCamera(
-                worldPosition + right * halfOfSide + forward * halfOfSide + up * rangeProportionalOffset);
-            const Float3 baseB = camera->WorldToCamera(
-                worldPosition - right * halfOfSide + forward * halfOfSide + up * rangeProportionalOffset);
-            const Float3 baseC = camera->WorldToCamera(
-                worldPosition - right * halfOfSide - forward * halfOfSide + up * rangeProportionalOffset);
-            const Float3 baseD = camera->WorldToCamera(
-                worldPosition + right * halfOfSide - forward * halfOfSide + up * rangeProportionalOffset);
-
-            renderer->DrawLine(&baseA, &baseB, baseColor);
-            renderer->DrawLine(&baseB, &baseC, baseColor);
-            renderer->DrawLine(&baseC, &baseD, baseColor);
-            renderer->DrawLine(&baseD, &baseA, baseColor);
-        }
-    }
+    void SetArena(TowerDefenseArena* tile);
 
     boolean IsUpgradeable() const
     {
@@ -78,13 +75,15 @@ public:
 
     virtual void Upgrade()
     {
+        OnWillUpgrade();
+
         if (level < GetMaxLevel())
         {
             level++;
         }
-    }
 
-    virtual void Update(float deltaTime) = 0;
+        OnUpgraded();
+    }
 
     virtual int GetCost() = 0;
 
@@ -94,6 +93,8 @@ public:
 
     virtual int GetRange() = 0;
 
+    void UpdateTilesInRange();
+
     virtual float GetDamage() = 0;
 
     virtual float GetUpgradeLevelScale() const
@@ -102,48 +103,13 @@ public:
     }
 
 protected:
+    TowerDefenseArena* arena = nullptr;
+    ArenaTile* tile = nullptr;
+    std::unordered_set<ArenaTile*> tilesInRange;
+
     Float3 baseColor;
     float renderScale = 1.0f;
     int level = 0;
 
-    void RenderBuildingBase(LineRenderer* renderer, Camera* camera) const
-    {
-        const float baseSide = 0.45f * renderScale * GetUpgradeLevelScale();
-        const float upElevation = 0.015f * renderScale * GetUpgradeLevelScale();
-        const float upperBaseSide = 0.38f * renderScale * GetUpgradeLevelScale();
-        const float upperBaseElevation = 0.15f * renderScale * GetUpgradeLevelScale();
-
-        const Float3 baseA = camera->WorldToCamera(
-            worldPosition + right * baseSide + forward * baseSide + up * upElevation);
-        const Float3 baseB = camera->WorldToCamera(
-            worldPosition - right * baseSide + forward * baseSide + up * upElevation);
-        const Float3 baseC = camera->WorldToCamera(
-            worldPosition - right * baseSide - forward * baseSide + up * upElevation);
-        const Float3 baseD = camera->WorldToCamera(
-            worldPosition + right * baseSide - forward * baseSide + up * upElevation);
-
-        const Float3 upperBaseA = camera->
-            WorldToCamera(worldPosition + right * upperBaseSide + forward * upperBaseSide + up * upperBaseElevation);
-        const Float3 upperBaseB = camera->
-            WorldToCamera(worldPosition - right * upperBaseSide + forward * upperBaseSide + up * upperBaseElevation);
-        const Float3 upperBaseC = camera->
-            WorldToCamera(worldPosition - right * upperBaseSide - forward * upperBaseSide + up * upperBaseElevation);
-        const Float3 upperBaseD = camera->
-            WorldToCamera(worldPosition + right * upperBaseSide - forward * upperBaseSide + up * upperBaseElevation);
-
-        renderer->DrawLineFogApplied(&baseA, &baseB, baseColor);
-        renderer->DrawLineFogApplied(&baseB, &baseC, baseColor);
-        renderer->DrawLineFogApplied(&baseC, &baseD, baseColor);
-        renderer->DrawLineFogApplied(&baseD, &baseA, baseColor);
-
-        renderer->DrawLineFogApplied(&baseA, &upperBaseA, baseColor);
-        renderer->DrawLineFogApplied(&baseB, &upperBaseB, baseColor);
-        renderer->DrawLineFogApplied(&baseC, &upperBaseC, baseColor);
-        renderer->DrawLineFogApplied(&baseD, &upperBaseD, baseColor);
-
-        renderer->DrawLineFogApplied(&upperBaseA, &upperBaseB, baseColor);
-        renderer->DrawLineFogApplied(&upperBaseB, &upperBaseC, baseColor);
-        renderer->DrawLineFogApplied(&upperBaseC, &upperBaseD, baseColor);
-        renderer->DrawLineFogApplied(&upperBaseD, &upperBaseA, baseColor);
-    }
+    void RenderBuildingBase(LineRenderer* renderer, Camera* camera) const;
 };

@@ -1,8 +1,12 @@
 #pragma once
 #include <dsound.h>
+#include <unordered_set>
+
 
 #include "../Math/Float3.h"
-#include "Buildings/IBuilding.h"
+
+class IBuilding;
+class IEnemy;
 
 class ArenaTile
 {
@@ -27,6 +31,18 @@ public:
         return partOfThePath;
     }
 
+    std::unordered_set<IEnemy*>* GetEnemiesOnThisTile();
+
+    void AddEnemy(IEnemy* enemy)
+    {
+        enemiesAtThisTile.insert(enemy);
+    }
+
+    void RemoveEnemy(IEnemy* enemy)
+    {
+        enemiesAtThisTile.erase(enemy);
+    }
+
     IBuilding* GetBuilding() const
     {
         return building;
@@ -37,13 +53,21 @@ public:
         building = nullptr;
     }
 
-    void AddBuilding(IBuilding* building)
-    {
-        this->building = building;
-    }
+    void RegisterBuilding(IBuilding* building);
+
+    float GetSpeedMultiplier() const;
+    float GetDamageTakenMultiplier() const;
+
+    void SetSpeedMultiplier(float speedMultiplier);
+    void SetDamageTakenMultiplier(float damageTakenMultiplier);
 
 private:
     Float3 position;
     boolean partOfThePath = false;
     IBuilding* building = nullptr;
+
+    float speedMultiplier = 1.0f;
+    float damageTakenMultiplier = 1.0f;
+
+    std::unordered_set<IEnemy*> enemiesAtThisTile;
 };

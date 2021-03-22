@@ -1,20 +1,3 @@
-﻿  GameTest.cpp
-  ArenaTile.cpp
-  CoreBuilding.cpp
-  IBuilding.cpp
-  TowerBasic.cpp
-  TowerFrost.cpp
-  PlayerInput.cpp
-  TowerDefenseArena.cpp
-  LineRenderer.cpp
-C:\Users\Sasha\workspace\UbisoftNext2021\GameTest\LineRenderer.cpp(13,47): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\Sasha\workspace\UbisoftNext2021\GameTest\LineRenderer.cpp(13,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\Sasha\workspace\UbisoftNext2021\GameTest\LineRenderer.cpp(13,30): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  HUD.cpp
-C:\Users\Sasha\workspace\UbisoftNext2021\GameTest\UI\HUD.cpp(35,111): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\Sasha\workspace\UbisoftNext2021\GameTest\UI\HUD.cpp(35,71): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-  UIButton.cpp
-  Generating Code...
-  GameTest.vcxproj -> C:\Users\Sasha\workspace\UbisoftNext2021\x64\Debug\GameTest.exe
+﻿  GameTest.vcxproj -> C:\Users\Sasha\workspace\UbisoftNext2021\x64\Debug\GameTest.exe
   C:\Users\Sasha\workspace\UbisoftNext2021\\GameTest\glut\bin\x64\freeglut.dll
   1 File(s) copied

@@ -13,7 +13,7 @@ public:
     const float lineSegmentationDistance = 1.0f;
     const int maxSegments = 10;
     const float fogStartZ = 51;
-    const float fogFullZ = 52.0f;
+    const float fogFullZ = 51.4f;
     const Float3 fogColor{0, 0, 0};
 
     LineRenderer()

@@ -1,9 +1,9 @@
 #pragma once
-#include "IAreaTower.h"
+#include "IAreaEffectTower.h"
 #include "IBuilding.h"
 #include "../../Drawables/DrawableSnowflake.h"
 
-class TowerFrost : public IAreaTower
+class TowerFrost : public IAreaEffectTower
 {
 public:
     TowerFrost() : TowerFrost(Float3(0, 0, 1))
@@ -11,14 +11,25 @@ public:
     }
 
     TowerFrost(Float3 baseColor)
-        : IAreaTower(baseColor)
+        : IAreaEffectTower(baseColor)
     {
         snowflake = new DrawableSnowflake(Float3(), this, 1);
     }
 
     ~TowerFrost()
     {
+        RemoveEffectFromAllTiles();
         delete snowflake;
+    }
+
+    void ApplyEffectToTile(ArenaTile* tile) override
+    {
+        tile->SetSpeedMultiplier(tile->GetSpeedMultiplier() * GetSpeedMultiplier());
+    }
+
+    void RemoveEffectFromTile(ArenaTile* tile) override
+    {
+        tile->SetSpeedMultiplier(tile->GetSpeedMultiplier() * (1.0f / GetSpeedMultiplier()));
     }
 
     void Render(LineRenderer* renderer, Camera* camera) override
@@ -42,17 +53,23 @@ public:
 
     std::string GetName() override
     {
-        return "Frost Tower";
+        return "Sigil of Frost";
     }
 
     std::vector<std::string> GetDescription() override
     {
         return {
-            "Freezes enemies passing by!",
+            "Freezing aura from this tower slows enemies",
+            "in range.",
             "Damage: 0",
             "Range: " + std::to_string(static_cast<int>(GetRange())) + (IsUpgradeable() ? " (+1 next level)" : ""),
-            "Slows."
+            "Slows from multiple towers stack."
         };
+    }
+
+    float GetSpeedMultiplier() const
+    {
+        return 0.75f;
     }
 
     int GetCost() override

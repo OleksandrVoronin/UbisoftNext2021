@@ -5,42 +5,54 @@
 #include "../App/main.h"
 #include "../Math/Ray3.h"
 
-
-boolean PlayerInput::GetLMousePressedThisFrame() const
-{
-    return !lastLMousePressedState && currentLMousePressedState;
-}
-
-boolean PlayerInput::GetLMouseReleasedThisFrame() const
-{
-    return lastLMousePressedState && !currentLMousePressedState;
-}
-
-boolean PlayerInput::GetRMousePressedThisFrame() const
-{
-    return !lastRMousePressedState && currentRMousePressedState;
-}
-
-boolean PlayerInput::GetRMouseReleasedThisFrame() const
-{
-    return lastRMousePressedState && !currentRMousePressedState;
-}
-
 PlayerInput::PlayerInput(TowerDefenseArena* arena): arena(arena)
 {
+    for (std::unordered_set<int>::iterator itr = keysToTrack.begin(); itr != keysToTrack.end();
+         ++itr)
+    {
+        currentState[*itr] = false;
+        lastState[*itr] = false;
+    }
+}
+
+boolean PlayerInput::GetKeyPressedThisFrame(int keycode)
+{
+    if (keysToTrack.count(keycode) == 0)
+    {
+        return false;
+    }
+
+    return !lastState[keycode] && currentState[keycode];
+}
+
+boolean PlayerInput::GetKeyReleasedThisFrame(int keycode)
+{
+    if (keysToTrack.count(keycode) == 0)
+    {
+        return false;
+    }
+
+    return lastState[keycode] && !currentState[keycode];
 }
 
 void PlayerInput::Update()
 {
-    currentLMousePressedState = App::IsKeyPressed(VK_LBUTTON);
-    currentRMousePressedState = App::IsKeyPressed(VK_RBUTTON);
+    for (std::unordered_set<int>::iterator itr = keysToTrack.begin(); itr != keysToTrack.end();
+         ++itr)
+    {
+        currentState[*itr] = App::IsKeyPressed(*itr);
+    }
+
     CalculateGridSelection();
 }
 
 void PlayerInput::LateUpdate()
 {
-    lastLMousePressedState = currentLMousePressedState;
-    lastRMousePressedState = currentRMousePressedState;
+    for (std::unordered_set<int>::iterator itr = keysToTrack.begin(); itr != keysToTrack.end();
+         ++itr)
+    {
+        lastState[*itr] = currentState[*itr];
+    }
 }
 
 void PlayerInput::CalculateGridSelection()
@@ -52,5 +64,6 @@ void PlayerInput::CalculateGridSelection()
         mouseScreenPosition.y / static_cast<float>(WINDOW_HEIGHT));
     mouseXZProjection = screenToWorldRay.GetPositionAlongRay(screenToWorldRay.Test_MagnitudeToYZero());
 
-    gridSelection = Float3(floor(mouseXZProjection.x / arena->tileSizeX), 0, floor(mouseXZProjection.z / arena->tileSizeZ));
+    gridSelection = Float3(floor(mouseXZProjection.x / arena->tileSizeX), 0,
+                           floor(mouseXZProjection.z / arena->tileSizeZ));
 }

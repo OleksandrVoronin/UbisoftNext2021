@@ -138,6 +138,13 @@ public:
         DirtySelf();
     }
 
+    void SetWorldPosition(Float3 worldPosition)
+    {
+        this->localPosition = globalTransformationMatrix * worldPosition;
+
+        DirtySelf();
+    }
+
 protected:
     bool isDirtySelf = false;
     bool isDirtyHierarchy = false;
@@ -158,6 +165,7 @@ protected:
     Float3 worldScale{0, 0, 0};
 
     Matrix3 globalTransformationMatrixInverse;
+    Matrix3 globalTransformationMatrix;
 
     // cached helpers
     Float3 forward{0, 0, 1};
@@ -197,6 +205,7 @@ protected:
     void RecalculateWorldPRS()
     {
         globalTransformationMatrixInverse = CalculateCombinedTransformationMatrixInverse();
+        globalTransformationMatrix = CalculateCombinedTransformationMatrix();
         worldPosition = CalculateWorldPosition();
         worldScale = CalculateHierarchyScale();
 
@@ -231,5 +240,15 @@ protected:
         }
 
         return parent->globalTransformationMatrixInverse * localTransformationMatrixInverse;
+    }
+
+    Matrix3 CalculateCombinedTransformationMatrix() const
+    {
+        if (parent == nullptr)
+        {
+            return localTransformationMatrix;
+        }
+
+        return parent->globalTransformationMatrix * localTransformationMatrix;
     }
 };

@@ -40,14 +40,12 @@
           <e p="Buildings" t="Include">
             <e p="CoreBuilding.cpp" t="Include" />
             <e p="CoreBuilding.h" t="Include" />
-            <e p="IAreaTower.cpp" t="Include" />
-            <e p="IAreaTower.h" t="Include" />
+            <e p="IAreaEffectTower.cpp" t="Include" />
+            <e p="IAreaEffectTower.h" t="Include" />
             <e p="IBuilding.cpp" t="Include" />
             <e p="IBuilding.h" t="Include" />
             <e p="IShootingTower.cpp" t="Include" />
             <e p="IShootingTower.h" t="Include" />
-            <e p="TowerAOE.cpp" t="Include" />
-            <e p="TowerAOE.h" t="Include" />
             <e p="TowerBasic.cpp" t="Include" />
             <e p="TowerBasic.h" t="Include" />
             <e p="TowerBurst.cpp" t="Include" />
@@ -56,13 +54,35 @@
             <e p="TowerDamageIncrease.h" t="Include" />
             <e p="TowerFrost.cpp" t="Include" />
             <e p="TowerFrost.h" t="Include" />
+            <e p="TowerSplash.cpp" t="Include" />
+            <e p="TowerSplash.h" t="Include" />
           </e>
+          <e p="Enemies" t="Include">
+            <e p="EnemyBoss.cpp" t="Include" />
+            <e p="EnemyBoss.h" t="Include" />
+            <e p="EnemyCorner.cpp" t="Include" />
+            <e p="EnemyCorner.h" t="Include" />
+            <e p="EnemyHeavy.cpp" t="Include" />
+            <e p="EnemyHeavy.h" t="Include" />
+            <e p="EnemyScout.cpp" t="Include" />
+            <e p="EnemyScout.h" t="Include" />
+            <e p="EnemySoldier.cpp" t="Include" />
+            <e p="EnemySoldier.h" t="Include" />
+            <e p="IEnemy.cpp" t="Include" />
+            <e p="IEnemy.h" t="Include" />
+            <e p="IWaypointMover.cpp" t="Include" />
+            <e p="IWaypointMover.h" t="Include" />
+          </e>
+          <e p="EnemySpawner.cpp" t="Include" />
+          <e p="EnemySpawner.h" t="Include" />
           <e p="PlayerInput.cpp" t="Include" />
           <e p="PlayerInput.h" t="Include" />
           <e p="PlayerState.cpp" t="Include" />
           <e p="PlayerState.h" t="Include" />
           <e p="TowerDefenseArena.cpp" t="Include" />
           <e p="TowerDefenseArena.h" t="Include" />
+          <e p="WaveChoreographer.cpp" t="Include" />
+          <e p="WaveChoreographer.h" t="Include" />
         </e>
         <e p="GameTest.cpp" t="Include" />
         <e p="GameTest.vcxproj" t="IncludeRecursive" />

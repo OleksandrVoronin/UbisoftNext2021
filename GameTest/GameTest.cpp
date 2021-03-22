@@ -41,6 +41,11 @@ void Update(float deltaTime)
 {
     deltaTime /= 1000.0f;
 
+    if (arena == nullptr)
+    {
+        Init();
+    }
+
     arena->Update(deltaTime);
 }
 
@@ -50,7 +55,10 @@ void Update(float deltaTime)
 //------------------------------------------------------------------------
 void Render()
 {
-    arena->Render();
+    if (arena != nullptr)
+    {
+        arena->Render();
+    }
 }
 
 //------------------------------------------------------------------------

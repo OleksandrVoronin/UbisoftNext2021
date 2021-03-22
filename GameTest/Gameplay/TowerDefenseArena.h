@@ -7,10 +7,14 @@
 #include "../Utils/Camera.h"
 #include "../Utils/LineRenderer.h"
 #include "../Math/Float3.h"
-#include "Buildings/CoreBuilding.h"
+#include "Enemies/IEnemy.h"
 
+#include "Enemies/IWaypointMover.h"
+
+class IBuilding;
 class PlayerInput;
 class HUD;
+class WaveChoreographer;
 
 class TowerDefenseArena
 {
@@ -26,30 +30,35 @@ public:
 
     ~TowerDefenseArena();
 
-    void Update(float deltaTime) const;
+    void Update(float deltaTime);
 
     void Render() const;
 
-    void AddBuilding(int x, int y, IBuilding* building)
+    int GetEnemyCount() const
     {
-        GetTile(x, y)->AddBuilding(building);
-        building->SetRenderScale(min(tileSizeX, tileSizeZ));
-        building->SetParent(worldRoot);
-        building->MoveToLocal(GetTilePosition(x, y) + Float3(tileSizeX / 2.0f, 0, tileSizeZ / 2.0f));
-        buildings.insert(building);
+        return enemies.size();
     }
 
-    void RemoveBuilding(int x, int y)
+    void AddEnemy(IEnemy* newEnemy)
     {
-        ArenaTile* tile = GetTile(x, y);
-        if (tile)
-        {
-            IBuilding* building = tile->GetBuilding();
-            buildings.erase(building);
-            tile->RemoveBuilding();
-            delete building;
-        }
+        enemies.insert(newEnemy);
     }
+
+    void DeleteEnemy(IEnemy* enemy)
+    {
+        ArenaTile* currentTile = enemy->GetCurrentTile();
+        if (currentTile != nullptr)
+        {
+            currentTile->RemoveEnemy(enemy);
+        }
+        enemies.erase(enemy);
+
+        delete enemy;
+    }
+
+    void AddBuilding(int x, int y, IBuilding* building);
+
+    void RemoveBuilding(int x, int y);
 
     PlayerState* GetPlayerState() const
     {
@@ -71,9 +80,33 @@ public:
         return camera;
     }
 
+    float GetTimeElapsed() const
+    {
+        return timeElapsed;
+    }
+
+    float GetTimeScale() const
+    {
+        return timeScale;
+    }
+
+    std::vector<Float3>* GetPath()
+    {
+        return &path;
+    }
+
+    Transform* GetWorldRoot() const
+    {
+        return worldRoot;
+    }
+
+    WaveChoreographer* GetWaveChoreographer() const {
+        return waveChoreographer;
+    }
+
     Float3 GetTilePosition(int x, int y)
     {
-        ArenaTile* tile = GetTile(x, y);
+        ArenaTile* tile = GetTileByIndices(x, y);
         if (tile)
         {
             return Float3(tile->GetTileCoordinates().x * tileSizeX, 0, tile->GetTileCoordinates().z * tileSizeZ);
@@ -82,11 +115,18 @@ public:
         return Float3(-1, -1, -1);
     }
 
-    ArenaTile* GetTile(int x, int y)
+    ArenaTile* GetTileByIndices(int x, int y)
     {
         if (x < 0 || y < 0 || x >= cellCountX || y >= cellCountZ) return nullptr;
 
         return &tiles[x][y];
+    }
+
+    ArenaTile* GetTileByPosition(Float3 position)
+    {
+        // Round down to tiles.
+        position = Float3(floor(position.x / tileSizeX), 0, floor(position.z / tileSizeZ));
+        return GetTileByIndices(static_cast<int>(position.x), static_cast<int>(position.z));
     }
 
     void RenderSquareOnTile(int x, int z, float size, Float3 color, bool fogApplied = true, float yOffset = 0) const
@@ -119,72 +159,33 @@ public:
 
 private:
     const Float3 gridColor{0.36f, 0.0f, 0.0f};
-    
+
     Transform* worldRoot;
     Camera* camera;
     LineRenderer* lineRenderer;
     PlayerInput* playerInput;
     HUD* hud;
     PlayerState* playerState;
+    WaveChoreographer* waveChoreographer;
 
     std::vector<Float3> path;
     std::vector<std::vector<ArenaTile>> tiles;
     std::unordered_set<IBuilding*> buildings;
+    std::unordered_set<IEnemy*> enemies;
 
-    void ParseMap(std::vector<Float3> map)
-    {
-        // Convert given path into a list of coordinates.
-        for (int i = 0; i < map.size(); i++)
-        {
-            path.push_back(Float3(map[i].x * tileSizeX, 0, map[i].y * tileSizeZ));
-        }
+    float timeScale = 1.f;
+    float timeElapsed = 0.f;
 
-        // Build a matrix and figure out every tile of the path connecting path points.
-        std::vector<std::vector<boolean>> pathMap(cellCountX, std::vector<boolean>(cellCountZ, false));
-        Float3 currentPosition = Float3(map[0].x, 0, map[0].y);
-        int currentIndex = 0;
-
-        while (currentIndex != path.size() - 1)
-        {
-            pathMap[static_cast<int>(round(currentPosition.x))][static_cast<int>(round(currentPosition.z))] = true;
-
-            Float3 target = Float3(map[currentIndex + 1].x, 0, map[currentIndex + 1].y);
-            if (currentPosition.x == target.x && currentPosition.z == target.z)
-            {
-                currentIndex++;
-                continue;
-            }
-
-            const Float3 direction = (target - currentPosition).Normalized();
-            currentPosition = Float3(currentPosition.x + direction.x,
-                                     currentPosition.y + direction.y,
-                                     currentPosition.z + direction.z);
-        }
-
-        // Use matrix above to generate actual tile objects.
-        tiles.resize(cellCountX);
-        for (int x = 0; x < cellCountX; x++)
-        {
-            for (int z = 0; z < cellCountZ; z++)
-            {
-                tiles[x].push_back(ArenaTile{Float3(static_cast<float>(x), 0, static_cast<float>(z)), pathMap[x][z]});
-            }
-        }
-
-        AddBuilding(static_cast<int>(path[path.size() - 1].x), static_cast<int>(path[path.size() - 1].z),
-                    new CoreBuilding());
-
-        path.insert(path.begin(), Float3(static_cast<int>(map[0].x) * tileSizeX, 0, (map[0].y + 2) * tileSizeZ));
-    }
+    void ParseMap(std::vector<Float3> map);
 
     void VisualizePath() const
     {
-        const Float3 visualizationOffset = Float3(tileSizeX / 2, 0.1f, tileSizeZ / 2);
+        //const Float3 visualizationOffset = Float3(tileSizeX / 2, 0.1f, tileSizeZ / 2);
 
         for (int i = 0; i < path.size() - 1; i++)
         {
-            Float3 a = camera->WorldToCamera(path[i] + visualizationOffset);
-            Float3 b = camera->WorldToCamera(path[i + 1] + visualizationOffset);
+            Float3 a = camera->WorldToCamera(path[i]);
+            Float3 b = camera->WorldToCamera(path[i + 1]);
 
             lineRenderer->DrawLineFogApplied(&a, &b, Float3(1.0f, 0, 0));
         }
@@ -323,14 +324,16 @@ private:
                     if (x == 0 || z == 0 || tiles[x - 1][z - 1].GetIsPartOfThePath())
                     {
                         const Float3 a = camera->WorldToCamera(Float3(tileSizeX * (x), 0, tileSizeZ * (z)));
-                        const Float3 b = camera->WorldToCamera(Float3(tileSizeX * (x), -tileSizeZ * 1.1f, tileSizeZ * (z)));
+                        const Float3 b = camera->WorldToCamera(
+                            Float3(tileSizeX * (x), -tileSizeZ * 1.1f, tileSizeZ * (z)));
                         lineRenderer->DrawGradientLineFogApplied(&a, &b, gridColor, lineRenderer->fogColor, 4.f);
                     }
 
                     if (x == cellCountX - 1 || z == 0 || tiles[x + 1][z - 1].GetIsPartOfThePath())
                     {
                         const Float3 c = camera->WorldToCamera(Float3(tileSizeX * (x + 1), 0, tileSizeZ * (z)));
-                        const Float3 d = camera->WorldToCamera(Float3(tileSizeX * (x + 1), -tileSizeZ * 1.1f, tileSizeZ * (z)));
+                        const Float3 d = camera->WorldToCamera(
+                            Float3(tileSizeX * (x + 1), -tileSizeZ * 1.1f, tileSizeZ * (z)));
                         lineRenderer->DrawGradientLineFogApplied(&c, &d, gridColor, lineRenderer->fogColor, 4.f);
                     }
                 }
@@ -362,14 +365,16 @@ private:
                 if (needsLeftLine)
                 {
                     const Float3 a = camera->WorldToCamera(Float3(tileSizeX * (x + 1), 0, tileSizeZ * (z + 1)));
-                    const Float3 b = camera->WorldToCamera(Float3(tileSizeX * (x + 1), -tileSizeZ * 1.1f, tileSizeZ * (z + 1)));
+                    const Float3 b = camera->WorldToCamera(
+                        Float3(tileSizeX * (x + 1), -tileSizeZ * 1.1f, tileSizeZ * (z + 1)));
                     lineRenderer->DrawGradientLineFogApplied(&a, &b, gridColor, lineRenderer->fogColor, 4.f);
                 }
 
                 if (needsRightLine)
                 {
                     const Float3 a = camera->WorldToCamera(Float3(tileSizeX * (x + 1), 0, tileSizeZ * (z + 1)));
-                    const Float3 b = camera->WorldToCamera(Float3(tileSizeX * (x + 1), -tileSizeZ * 1.1f, tileSizeZ * (z + 1)));
+                    const Float3 b = camera->WorldToCamera(
+                        Float3(tileSizeX * (x + 1), -tileSizeZ * 1.1f, tileSizeZ * (z + 1)));
                     lineRenderer->DrawGradientLineFogApplied(&a, &b, gridColor, lineRenderer->fogColor, 4.f);
                 }
             }
