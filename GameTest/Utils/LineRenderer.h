@@ -42,8 +42,6 @@ public:
 
     void DrawLineFogApplied(const Float3* a, const Float3* b, Float3 color);
 
-    void DrawDottedLineFogApplied(const Float3* a, const Float3* b, Float3 color, float worldLength);
-
 private:
     class LineRenderInstruction
     {
@@ -72,9 +70,9 @@ private:
 
     std::vector<LineRenderInstruction> renderInstructionsQueue;
 
-    float fogAmount(float z) const;
+    float GetFogAmountAtZ(float z) const;
 
-    bool isPositionCulled(const Float3* a, const Float3* b) const;
+    bool IsPositionCulled(const Float3* a, const Float3* b) const;
 
     /*
     * a & b are pixel-coordinates where z is world-space distance

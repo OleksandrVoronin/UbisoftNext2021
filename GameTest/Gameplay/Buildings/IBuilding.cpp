@@ -34,6 +34,11 @@ void IBuilding::RenderRange(LineRenderer* renderer, Camera* camera)
     }
 }
 
+void IBuilding::SetRenderScale(float renderScale)
+{
+    this->renderScale = renderScale;
+}
+
 void IBuilding::SetTile(ArenaTile* tile)
 {
     this->tile = tile;
@@ -44,6 +49,21 @@ void IBuilding::SetArena(TowerDefenseArena* arena)
     this->arena = arena;
 }
 
+boolean IBuilding::IsUpgradeable() const
+{
+    return GetLevel() < GetMaxLevel();
+}
+
+int IBuilding::GetLevel() const
+{
+    return level;
+}
+
+float IBuilding::GetUpgradeLevelScale() const
+{
+    return 1.0f;
+}
+
 void IBuilding::UpdateTilesInRange()
 {
     tilesInRange.clear();
@@ -52,8 +72,8 @@ void IBuilding::UpdateTilesInRange()
     {
         for (int y = -GetRange(); y <= GetRange(); y++)
         {
-            tilesInRange.insert(arena->GetTileByIndices(this->tile->GetTileCoordinates().x + x,
-                                                        this->tile->GetTileCoordinates().z + y));
+            tilesInRange.insert(arena->GetTileByIndices(static_cast<int>(this->tile->GetTileCoordinates().x) + x,
+                                                        static_cast<int>(this->tile->GetTileCoordinates().z) + y));
         }
     }
 }

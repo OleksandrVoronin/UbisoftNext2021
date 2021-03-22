@@ -22,6 +22,11 @@ public:
 
     virtual ~IBuilding() = default;
 
+    // Core updates
+    virtual void Update(float deltaTime) = 0;
+    virtual void Render(LineRenderer* renderer, Camera* camera);
+
+
     // Lifetime events to redefine in children if needed.
     virtual void OnPlaced()
     {
@@ -37,35 +42,22 @@ public:
         UpdateTilesInRange();
     }
 
-    // Core updates
-    virtual void Update(float deltaTime) = 0;
-    virtual void Render(LineRenderer* renderer, Camera* camera);
 
     // Renders a covered-range visual around the building
     virtual void RenderRange(LineRenderer* renderer, Camera* camera);
 
-    virtual void SetRenderScale(float renderScale)
-    {
-        this->renderScale = renderScale;
-    }
+    virtual void SetRenderScale(float renderScale);
 
     void SetTile(ArenaTile* tile);
-
     void SetArena(TowerDefenseArena* tile);
 
-    boolean IsUpgradeable() const
-    {
-        return GetLevel() < GetMaxLevel();
-    }
+    boolean IsUpgradeable() const;
+
+    int GetLevel() const;
 
     virtual int GetMaxLevel() const
     {
         return 0;
-    }
-
-    int GetLevel() const
-    {
-        return level;
     }
 
     virtual int GetSellPrice()
@@ -93,14 +85,9 @@ public:
 
     virtual int GetRange() = 0;
 
-    void UpdateTilesInRange();
-
     virtual float GetDamage() = 0;
 
-    virtual float GetUpgradeLevelScale() const
-    {
-        return 1.0f;
-    }
+    virtual float GetUpgradeLevelScale() const;
 
 protected:
     TowerDefenseArena* arena = nullptr;
@@ -111,5 +98,6 @@ protected:
     float renderScale = 1.0f;
     int level = 0;
 
+    void UpdateTilesInRange();
     void RenderBuildingBase(LineRenderer* renderer, Camera* camera) const;
 };

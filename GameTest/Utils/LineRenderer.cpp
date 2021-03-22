@@ -38,95 +38,63 @@ void LineRenderer::DrawLine(const Float3* a, const Float3* b, Float3 color)
 void LineRenderer::DrawGradientLineFogApplied(const Float3* a, const Float3* b, Float3 colorA, Float3 colorB,
                                               float worldLength)
 {
-    if (isPositionCulled(a, b)) return;
+    if (IsPositionCulled(a, b)) return;
 
     int segments = 1;
     if (worldLength > 0)
     {
         segments = static_cast<int>(min(maxSegments, ceil(worldLength / lineSegmentationDistance)));
     }
-    float segmentLength = 1.0f / (float)segments;
+    const float segmentLength = 1.0f / static_cast<float>(segments);
 
     for (int i = 0; i < segments; i++)
     {
         Float3 segmentStart = Float3::Lerp(a, b, i * segmentLength);
         Float3 segmentEnd = Float3::Lerp(a, b, (i + 1) * segmentLength);
-        Float3 color = Float3::Lerp(colorA, colorB, (i + 1) * segmentLength);
+        const Float3 color = Float3::Lerp(colorA, colorB, (i + 1) * segmentLength);
 
-        if (isPositionCulled(&segmentStart, &segmentEnd))
+        if (IsPositionCulled(&segmentStart, &segmentEnd))
         {
             continue;
         }
 
         renderInstructionsQueue.push_back(LineRenderInstruction{
             segmentStart, segmentEnd,
-            Float3::Lerp(color, fogColor, fogAmount(segmentStart.z))
+            Float3::Lerp(color, fogColor, GetFogAmountAtZ(segmentStart.z))
         });
     }
 }
 
 void LineRenderer::DrawLineFogApplied(const Float3* a, const Float3* b, Float3 color)
 {
-    if (isPositionCulled(a, b)) return;
+    if (IsPositionCulled(a, b)) return;
 
-    float totalZSpread = abs(a->z - b->z);
+    const float totalZSpread = abs(a->z - b->z);
     int segments = 1;
     if (totalZSpread > 0)
     {
         segments = static_cast<int>(min(maxSegments, ceil(totalZSpread / lineSegmentationDistance)));
     }
-    float segmentLength = 1.0f / (float)segments;
+    const float segmentLength = 1.0f / static_cast<float>(segments);
 
     for (int i = 0; i < segments; i++)
     {
         Float3 segmentStart = Float3::Lerp(a, b, i * segmentLength);
         Float3 segmentEnd = Float3::Lerp(a, b, (i + 1) * segmentLength);
 
-        if (isPositionCulled(&segmentStart, &segmentEnd))
+        if (IsPositionCulled(&segmentStart, &segmentEnd))
         {
             continue;
         }
 
         renderInstructionsQueue.push_back(LineRenderInstruction{
             segmentStart, segmentEnd,
-            Float3::Lerp(color, fogColor, fogAmount(segmentStart.z))
+            Float3::Lerp(color, fogColor, GetFogAmountAtZ(segmentStart.z))
         });
     }
 }
 
-void LineRenderer::DrawDottedLineFogApplied(const Float3* a, const Float3* b, Float3 color, float worldLength)
-{
-    if (isPositionCulled(a, b)) return;
-
-    int segments = 1;
-    if (worldLength > 0)
-    {
-        segments = static_cast<int>(min(maxSegments * 8, ceil(worldLength / lineSegmentationDistance)));
-    }
-    if (segments % 2 == 0)
-    {
-        segments++;
-    }
-    float segmentLength = 1.0f / (float)segments;
-
-    for (int i = 0; i < segments; i += 2)
-    {
-        Float3 segmentStart = Float3::Lerp(a, b, i * segmentLength);
-        Float3 segmentEnd = Float3::Lerp(a, b, (i + 1) * segmentLength);
-
-        if (isPositionCulled(&segmentStart, &segmentEnd))
-        {
-            continue;
-        }
-
-        renderInstructionsQueue.push_back(LineRenderInstruction{
-            segmentStart, segmentEnd,
-            Float3::Lerp(color, fogColor, fogAmount(segmentStart.z))
-        });
-    }
-}
-
-float LineRenderer::fogAmount(float z) const
+float LineRenderer::GetFogAmountAtZ(float z) const
 {
     if (z < fogStartZ) return 0;
     if (z > fogFullZ) return 1;
@@ -134,7 +102,7 @@ float LineRenderer::fogAmount(float z) const
     return (z - fogStartZ) / (fogFullZ - fogStartZ);
 }
 
-bool LineRenderer::isPositionCulled(const Float3* a, const Float3* b) const
+bool LineRenderer::IsPositionCulled(const Float3* a, const Float3* b) const
 {
     if ((a->x < 0 || a->x > WINDOW_WIDTH
             || a->y < 0 || a->y > WINDOW_HEIGHT)

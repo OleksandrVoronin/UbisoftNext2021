@@ -95,7 +95,7 @@ public:
         return {
             "Not the most powerful yet a very high",
             "fire rate tower.",
-            "Damage: " + std::to_string(static_cast<int>(GetDamage())) + (IsUpgradeable() ? " (+4 next level)" : ""),
+            "Damage: " + std::to_string(static_cast<int>(GetDamage())) + (IsUpgradeable() ? " (+2 next level)" : ""),
             "Range: " + std::to_string(GetRange()),
             "Fire rate: High"
         };

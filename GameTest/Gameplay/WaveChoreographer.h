@@ -41,7 +41,7 @@ private:
     TowerDefenseArena* arena;
     std::vector<IEnemySpawner*> enemySpawners;
     const int BOSS_SPAWNER_ID = 0;
-    const int waveDelay = 20.0f;
+    const int waveDelay = 20;
     boolean isWaveInProgress = false;
 
     int enemiesLeftThisBurst = 0;
@@ -82,7 +82,7 @@ private:
     // Stat multiplier applied to all new enemies.
     float GetStrengthMultiplier() const
     {
-        return 1 + 0.1f * wave;
+        return 1 + 0.2f * wave;
     }
 
     void GenerateNextWave();

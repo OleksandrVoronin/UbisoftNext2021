@@ -23,19 +23,10 @@
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
-      <option value="$PROJECT_DIR$/GameTest/Transform.h" />
-      <option value="$PROJECT_DIR$/GameTest/Gameplay/Buildings/ITower.h" />
-      <option value="$PROJECT_DIR$/GameTest/LineRenderer.h" />
-      <option value="$PROJECT_DIR$/GameTest/Drawables/DrawablePyramid.h" />
-      <option value="$PROJECT_DIR$/GameTest/Drawables/DrawablePyramid.cpp" />
-      <option value="$PROJECT_DIR$/GameTest/Drawables/DrawableSnowflake.h" />
       <option value="$PROJECT_DIR$/GameTest/Drawables/DrawableGem.h" />
       <option value="$PROJECT_DIR$/GameTest/Drawables/IDrawable.h" />
       <option value="$PROJECT_DIR$/GameTest/Utils/Camera.h" />
       <option value="$PROJECT_DIR$/GameTest/Drawables/DrawableCube.h" />
-      <option value="$PROJECT_DIR$/GameTest/UI/HUD.h" />
-      <option value="$PROJECT_DIR$/GameTest/Utils/LineRenderer.cpp" />
-      <option value="$PROJECT_DIR$/GameTest/Utils/LineRenderer.h" />
       <option value="$PROJECT_DIR$/GameTest/Gameplay/Buildings/TowerAOE.h" />
       <option value="$PROJECT_DIR$/GameTest/Drawables/DrawableRhombus.h" />
       <option value="$PROJECT_DIR$/GameTest/Utils/Transform.h" />
@@ -45,7 +36,6 @@
       <option value="$PROJECT_DIR$/GameTest/Drawables/DrawableCube.cpp" />
       <option value="$PROJECT_DIR$/GameTest/Gameplay/ArenaTile.h" />
       <option value="$PROJECT_DIR$/GameTest/Gameplay/ArenaTile.cpp" />
-      <option value="$PROJECT_DIR$/GameTest/Gameplay/Buildings/IBuilding.h" />
       <option value="$PROJECT_DIR$/GameTest/Gameplay/Buildings/IAreaEffectTower.h" />
       <option value="$PROJECT_DIR$/GameTest/Gameplay/Buildings/TowerSlash.h" />
       <option value="$PROJECT_DIR$/GameTest/Gameplay/Buildings/CoreBuilding.h" />
@@ -55,25 +45,35 @@
       <option value="$PROJECT_DIR$/GameTest/Gameplay/Buildings/TowerSplash.h" />
       <option value="$PROJECT_DIR$/GameTest/Gameplay/Buildings/TowerBurst.h" />
       <option value="$PROJECT_DIR$/GameTest/Gameplay/Buildings/TowerFrost.h" />
-      <option value="$PROJECT_DIR$/GameTest/Gameplay/Buildings/IBuilding.cpp" />
       <option value="$PROJECT_DIR$/GameTest/Gameplay/Buildings/TowerBasic.h" />
-      <option value="$PROJECT_DIR$/GameTest/GameTest.cpp" />
-      <option value="$PROJECT_DIR$/GameTest/Gameplay/Enemies/IWaypointMover.h" />
-      <option value="$PROJECT_DIR$/GameTest/Gameplay/Enemies/IEnemy.h" />
-      <option value="$PROJECT_DIR$/GameTest/Gameplay/Enemies/IWaypointMover.cpp" />
-      <option value="$PROJECT_DIR$/GameTest/Gameplay/Enemies/EnemySoldier.h" />
-      <option value="$PROJECT_DIR$/GameTest/Gameplay/Enemies/EnemyScout.h" />
-      <option value="$PROJECT_DIR$/GameTest/Gameplay/Enemies/EnemyCorner.h" />
-      <option value="$PROJECT_DIR$/GameTest/Gameplay/Enemies/EnemyBoss.h" />
       <option value="$PROJECT_DIR$/GameTest/Gameplay/EnemySpawner.h" />
-      <option value="$PROJECT_DIR$/GameTest/Gameplay/Enemies/EnemyHeavy.h" />
-      <option value="$PROJECT_DIR$/GameTest/Gameplay/WaveChoreographer.h" />
-      <option value="$PROJECT_DIR$/GameTest/Gameplay/TowerDefenseArena.h" />
       <option value="$PROJECT_DIR$/GameTest/Gameplay/WaveChoreographer.cpp" />
       <option value="$PROJECT_DIR$/GameTest/Gameplay/PlayerInput.h" />
-      <option value="$PROJECT_DIR$/GameTest/Gameplay/TowerDefenseArena.cpp" />
-      <option value="$PROJECT_DIR$/GameTest/UI/HUD.cpp" />
       <option value="$PROJECT_DIR$/GameTest/Gameplay/PlayerState.h" />
+      <option value="$PROJECT_DIR$/GameTest/UI/HUD.h" />
+      <option value="$PROJECT_DIR$/GameTest/Utils/LineRenderer.cpp" />
+      <option value="$PROJECT_DIR$/GameTest/Utils/LineRenderer.h" />
+      <option value="$PROJECT_DIR$/GameTest/Gameplay/Buildings/IBuilding.cpp" />
+      <option value="$PROJECT_DIR$/GameTest/Gameplay/Buildings/IBuilding.h" />
+      <option value="$PROJECT_DIR$/GameTest/Gameplay/Enemies/EnemyBoss.cpp" />
+      <option value="$PROJECT_DIR$/GameTest/Gameplay/Enemies/EnemyBoss.h" />
+      <option value="$PROJECT_DIR$/GameTest/Gameplay/Enemies/EnemyCorner.cpp" />
+      <option value="$PROJECT_DIR$/GameTest/Gameplay/Enemies/EnemyCorner.h" />
+      <option value="$PROJECT_DIR$/GameTest/Gameplay/Enemies/EnemyHeavy.cpp" />
+      <option value="$PROJECT_DIR$/GameTest/Gameplay/Enemies/EnemyHeavy.h" />
+      <option value="$PROJECT_DIR$/GameTest/Gameplay/Enemies/EnemyScout.cpp" />
+      <option value="$PROJECT_DIR$/GameTest/Gameplay/Enemies/EnemyScout.h" />
+      <option value="$PROJECT_DIR$/GameTest/Gameplay/Enemies/EnemySoldier.cpp" />
+      <option value="$PROJECT_DIR$/GameTest/Gameplay/Enemies/EnemySoldier.h" />
+      <option value="$PROJECT_DIR$/GameTest/Gameplay/Enemies/IEnemy.cpp" />
+      <option value="$PROJECT_DIR$/GameTest/Gameplay/Enemies/IEnemy.h" />
+      <option value="$PROJECT_DIR$/GameTest/Gameplay/Enemies/IWaypointMover.h" />
+      <option value="$PROJECT_DIR$/GameTest/Gameplay/Enemies/IWaypointMover.cpp" />
+      <option value="$PROJECT_DIR$/GameTest/GameTest.cpp" />
+      <option value="$PROJECT_DIR$/GameTest/Gameplay/TowerDefenseArena.cpp" />
+      <option value="$PROJECT_DIR$/GameTest/Gameplay/TowerDefenseArena.h" />
+      <option value="$PROJECT_DIR$/GameTest/Gameplay/WaveChoreographer.h" />
+      <option value="$PROJECT_DIR$/GameTest/UI/HUD.cpp" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1pyosqtYhjuJgpMj349NnmlL3LO" />
@@ -145,7 +145,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1616164901053</updated>
-      <workItem from="1616164914971" duration="145949000" />
+      <workItem from="1616164914971" duration="151921000" />
     </task>
     <servers />
   </component>

@@ -24,6 +24,16 @@ HUD::HUD(TowerDefenseArena* arena): arena{arena}
         new TypedBuildButton<TowerDamageIncrease>(Float3(800 + 280, 920), Float3(120, 140), renderScale));
 }
 
+HUD::~HUD()
+{
+    for (int i = 0; i < buildButtons.size(); i++)
+    {
+        delete buildButtons[i];
+    }
+    buildButtons.clear();
+    delete hudLineRenderer;
+}
+
 void HUD::Update()
 {
     if (!arena->GetPlayerState()->IsAlive())
@@ -98,16 +108,50 @@ void HUD::Update()
 void HUD::Render()
 {
     RenderInfoLabels();
-    RenderBuildButtons();    
+    RenderBuildButtons();
     RenderMapMouseSelection();
     RenderGrabbedObjects();
-
-    if(arena->GetPlayerState()->IsAlive())
-    {
-        
-    }
-    
     hudLineRenderer->RenderFrame();
+
+    // Death screen should go on top of everything, so render out of queue.
+    RenderDeathScreen();
+}
+
+void HUD::DrawRhombus(Float3 centerAt, float radius, Float3 color, float sizeMultiplier) const
+{
+    App::DrawLine(centerAt.x - radius * sizeMultiplier, centerAt.y,
+                  centerAt.x, centerAt.y + radius * sizeMultiplier, color.x, color.y, color.z);
+    App::DrawLine(centerAt.x, centerAt.y + radius * sizeMultiplier,
+                  centerAt.x + radius * sizeMultiplier, centerAt.y, color.x, color.y, color.z);
+    App::DrawLine(centerAt.x + radius * sizeMultiplier, centerAt.y,
+                  centerAt.x, centerAt.y - radius * sizeMultiplier, color.x, color.y, color.z);
+    App::DrawLine(centerAt.x, centerAt.y - radius * sizeMultiplier,
+                  centerAt.x - radius * sizeMultiplier, centerAt.y, color.x, color.y, color.z);
+}
+
+void HUD::RenderBuildingInformation(IBuilding* building, boolean includeUpgradeInformation) const
+{
+    std::string levelAppendedName = building->GetName();
+    if (building->GetLevel() > 0)
+    {
+        levelAppendedName += "+" + std::to_string(building->GetLevel());
+        if (!building->IsUpgradeable())
+        {
+            levelAppendedName += " (max level)";
+        }
+    }
+
+    App::Print(1200, 970, (levelAppendedName).c_str(),
+               textColor.x, textColor.y, textColor.z,
+               GLUT_BITMAP_TIMES_ROMAN_24);
+
+    for (int i = 0; i < building->GetDescription().size(); i++)
+    {
+        App::Print(1200, static_cast<float>(940 - 20.0f * i),
+                   building->GetDescription()[i].c_str(),
+                   textColor.x, textColor.y, textColor.z,
+                   GLUT_BITMAP_HELVETICA_18);
+    }
 }
 
 void HUD::RenderInfoLabels()
@@ -142,6 +186,9 @@ void HUD::RenderInfoLabels()
             std::to_string(static_cast<int>(arena->GetWaveChoreographer()->GetTimeUntilNextWave()));
         App::Print(20, 850, textBuffer.c_str(), livesColor.x, livesColor.y, livesColor.z,
                    GLUT_BITMAP_TIMES_ROMAN_24);
+        textBuffer = "[Space] to start now!";
+        App::Print(20, 820, textBuffer.c_str(), livesColor.x, livesColor.y, livesColor.z,
+                   GLUT_BITMAP_HELVETICA_18);
     }
 }
 
@@ -164,6 +211,8 @@ void HUD::RenderBuildButtons()
 
 void HUD::RenderMapMouseSelection()
 {
+    if(!arena->GetPlayerState()->IsAlive()) return;
+    
     if (currentBuildingSelection == nullptr)
     {
         const Float3 tileCoordinates = arena->GetPlayerInput()->GetGridSelection();
@@ -238,5 +287,25 @@ void HUD::RenderGrabbedObjects()
 
         currentBuildingSelection->GetPrototype()->UpdateTransform();
         currentBuildingSelection->GetPrototype()->Render(hudLineRenderer, arena->GetCamera());
+    }
+}
+
+void HUD::RenderDeathScreen()
+{
+    if (!arena->GetPlayerState()->IsAlive())
+    {
+        // Render death panel
+        for (int i = 400; i <= 600; i++)
+        {
+            App::DrawLine(0.0f, static_cast<float>(i), WINDOW_WIDTH, i, 0, 0, 0);
+        }
+
+        textBuffer = "GAME OVER";
+        App::Print(750, 510, textBuffer.c_str(), 1, 1, 1,
+                   GLUT_BITMAP_TIMES_ROMAN_24);
+
+        textBuffer = "[R] to play again / [ESC] to exit";
+        App::Print(670, 460, textBuffer.c_str(), 1, 1, 1,
+                   GLUT_BITMAP_TIMES_ROMAN_24);
     }
 }

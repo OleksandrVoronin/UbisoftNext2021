@@ -21,12 +21,12 @@ class TowerDefenseArena
 public:
     const float arenaSizeX = 20;
     const float arenaSizeZ = 20;
-    const int cellCountX;
-    const int cellCountZ;
+    const int cellCountX = 12;
+    const int cellCountZ = 12;
     const float tileSizeX = arenaSizeX / static_cast<float>(cellCountX);
     const float tileSizeZ = arenaSizeZ / static_cast<float>(cellCountZ);
 
-    TowerDefenseArena(int cellsX, int cellsZ, std::vector<Float3> map);
+    TowerDefenseArena();
 
     ~TowerDefenseArena();
 
@@ -34,7 +34,7 @@ public:
 
     void Render() const;
 
-    int GetEnemyCount() const
+    size_t GetEnemyCount() const
     {
         return enemies.size();
     }
@@ -100,7 +100,8 @@ public:
         return worldRoot;
     }
 
-    WaveChoreographer* GetWaveChoreographer() const {
+    WaveChoreographer* GetWaveChoreographer() const
+    {
         return waveChoreographer;
     }
 
@@ -176,208 +177,95 @@ private:
     float timeScale = 1.f;
     float timeElapsed = 0.f;
 
+    void FullReset();
+
     void ParseMap(std::vector<Float3> map);
 
-    void VisualizePath() const
-    {
-        //const Float3 visualizationOffset = Float3(tileSizeX / 2, 0.1f, tileSizeZ / 2);
-
-        for (int i = 0; i < path.size() - 1; i++)
-        {
-            Float3 a = camera->WorldToCamera(path[i]);
-            Float3 b = camera->WorldToCamera(path[i + 1]);
-
-            lineRenderer->DrawLineFogApplied(&a, &b, Float3(1.0f, 0, 0));
-        }
-    }
+    void VisualizePath() const;
 
     // Renders grid lines with continuous lines only breaking them where necessary (rather than rendering squares outside of path, causing tons of overdraw)
-    void RenderArena() const
+    void RenderArena() const;
+
+    void GenerateMap()
     {
-        // Render horizontal grid lines
-        for (int z = 0; z <= cellCountZ; z++)
-        {
-            int lineStart = 0;
-            for (int x = 0; x < cellCountX; x++)
-            {
-                boolean needsLine = false;
+        // This was supposed to generate a map but I'm out of time.
+        const int randomMap = rand() % mapVariants.size();
 
-                if (z - 1 < 0)
-                {
-                    if (!tiles[x][z].GetIsPartOfThePath())
-                    {
-                        needsLine = true;
-                    }
-                }
-                else if (z >= cellCountZ)
-                {
-                    if (!tiles[x][z - 1].GetIsPartOfThePath())
-                    {
-                        needsLine = true;
-                    }
-                }
-                else
-                {
-                    if ((tiles[x][z].GetIsPartOfThePath() == false &&
-                            tiles[x][z - 1].GetIsPartOfThePath() == false) ||
-                        tiles[x][z].GetIsPartOfThePath() != tiles[x][z - 1].GetIsPartOfThePath())
-                    {
-                        needsLine = true;
-                    }
-                }
-
-                if (!needsLine || x == cellCountX - 1)
-                {
-                    // If this is the last horizontal cell - push the row to the end.
-                    if (x == cellCountX - 1)
-                    {
-                        x++;
-                    }
-
-                    if (x != lineStart)
-                    {
-                        const Float3 a = camera->WorldToCamera(Float3(tileSizeX * (x), 0, tileSizeZ * (z)));
-                        const Float3 b = camera->WorldToCamera(Float3(tileSizeX * (lineStart), 0, tileSizeZ * (z)));
-                        lineRenderer->DrawLineFogApplied(&a, &b, gridColor);
-                    }
-                    lineStart = x + 1;
-                }
-            }
-        }
-
-        // Render vertical grid lines
-        for (int x = 0; x <= cellCountX; x++)
-        {
-            int lineStart = 0;
-            for (int z = 0; z < cellCountZ; z++)
-            {
-                boolean needsLine = false;
-
-                if (x - 1 < 0)
-                {
-                    if (!tiles[x][z].GetIsPartOfThePath())
-                    {
-                        needsLine = true;
-                    }
-                }
-                else if (x >= cellCountX)
-                {
-                    if (!tiles[x - 1][z].GetIsPartOfThePath())
-                    {
-                        needsLine = true;
-                    }
-                }
-                else
-                {
-                    if ((tiles[x][z].GetIsPartOfThePath() == false &&
-                            tiles[x - 1][z].GetIsPartOfThePath() == false) ||
-                        tiles[x][z].GetIsPartOfThePath() != tiles[x - 1][z].GetIsPartOfThePath())
-                    {
-                        needsLine = true;
-                    }
-                }
-
-                if (!needsLine || z == cellCountZ - 1)
-                {
-                    // If this is the last horizontal cell - push the row to the end.
-                    if (z == cellCountZ - 1)
-                    {
-                        z++;
-                    }
-
-                    if (z != lineStart)
-                    {
-                        const Float3 a = camera->WorldToCamera(Float3(tileSizeX * (x), 0, tileSizeZ * (z)));
-                        const Float3 b = camera->WorldToCamera(Float3(tileSizeX * (x), 0, tileSizeZ * (lineStart)));
-                        lineRenderer->DrawLineFogApplied(&a, &b, gridColor);
-                    }
-                    lineStart = z + 1;
-                }
-            }
-        }
-
-        //Render vertical downwards lines
-        for (int z = 0; z < cellCountZ; z++)
-        {
-            for (int x = 0; x < cellCountX; x++)
-            {
-                boolean needsLine = false;
-
-                if (z - 1 < 0)
-                {
-                    if (!tiles[x][z].GetIsPartOfThePath())
-                    {
-                        needsLine = true;
-                    }
-                }
-                else
-                {
-                    if (!tiles[x][z].GetIsPartOfThePath() &&
-                        tiles[x][z - 1].GetIsPartOfThePath())
-                    {
-                        needsLine = true;
-                    }
-                }
-
-                if (needsLine)
-                {
-                    if (x == 0 || z == 0 || tiles[x - 1][z - 1].GetIsPartOfThePath())
-                    {
-                        const Float3 a = camera->WorldToCamera(Float3(tileSizeX * (x), 0, tileSizeZ * (z)));
-                        const Float3 b = camera->WorldToCamera(
-                            Float3(tileSizeX * (x), -tileSizeZ * 1.1f, tileSizeZ * (z)));
-                        lineRenderer->DrawGradientLineFogApplied(&a, &b, gridColor, lineRenderer->fogColor, 4.f);
-                    }
-
-                    if (x == cellCountX - 1 || z == 0 || tiles[x + 1][z - 1].GetIsPartOfThePath())
-                    {
-                        const Float3 c = camera->WorldToCamera(Float3(tileSizeX * (x + 1), 0, tileSizeZ * (z)));
-                        const Float3 d = camera->WorldToCamera(
-                            Float3(tileSizeX * (x + 1), -tileSizeZ * 1.1f, tileSizeZ * (z)));
-                        lineRenderer->DrawGradientLineFogApplied(&c, &d, gridColor, lineRenderer->fogColor, 4.f);
-                    }
-                }
-            }
-        }
-
-        //Render vertical side lines
-        for (int x = 0; x < cellCountX; x++)
-        {
-            for (int z = 0; z < cellCountZ; z++)
-            {
-                boolean needsLeftLine = false;
-                boolean needsRightLine = false;
-
-                if (x < cellCountX / 2 - 1 &&
-                    (!tiles[x][z].GetIsPartOfThePath() &&
-                        tiles[x + 1][z].GetIsPartOfThePath()))
-                {
-                    needsLeftLine = true;
-                }
-
-                if (x >= cellCountX / 2 && x + 1 < cellCountX &&
-                    (tiles[x][z].GetIsPartOfThePath() &&
-                        !tiles[x + 1][z].GetIsPartOfThePath()))
-                {
-                    needsRightLine = true;
-                }
-
-                if (needsLeftLine)
-                {
-                    const Float3 a = camera->WorldToCamera(Float3(tileSizeX * (x + 1), 0, tileSizeZ * (z + 1)));
-                    const Float3 b = camera->WorldToCamera(
-                        Float3(tileSizeX * (x + 1), -tileSizeZ * 1.1f, tileSizeZ * (z + 1)));
-                    lineRenderer->DrawGradientLineFogApplied(&a, &b, gridColor, lineRenderer->fogColor, 4.f);
-                }
-
-                if (needsRightLine)
-                {
-                    const Float3 a = camera->WorldToCamera(Float3(tileSizeX * (x + 1), 0, tileSizeZ * (z + 1)));
-                    const Float3 b = camera->WorldToCamera(
-                        Float3(tileSizeX * (x + 1), -tileSizeZ * 1.1f, tileSizeZ * (z + 1)));
-                    lineRenderer->DrawGradientLineFogApplied(&a, &b, gridColor, lineRenderer->fogColor, 4.f);
-                }
-            }
-        }
+        ParseMap(mapVariants[randomMap]);
     }
+
+    const std::vector<std::vector<Float3>> mapVariants{
+        {
+            Float3(10, 11),
+            Float3(10, 8),
+            Float3(6, 8),
+            Float3(6, 5),
+            Float3(4, 5),
+            Float3(4, 10),
+            Float3(1, 10),
+            Float3(1, 3),
+            Float3(10, 3),
+            Float3(10, 1),
+            Float3(1, 1)
+        },
+        {
+            Float3(1, 11),
+            Float3(1, 10),
+            Float3(4, 10),
+            Float3(4, 8),
+            Float3(7, 8),
+            Float3(7, 10),
+            Float3(10, 10),
+            Float3(10, 6),
+            Float3(1, 6),
+            Float3(1, 1),
+            Float3(4, 1),
+            Float3(4, 4),
+            Float3(9, 4),
+            Float3(9, 1),
+            Float3(10, 1)
+        },
+        {
+            Float3(5, 11),
+            Float3(5, 10),
+            Float3(1, 10),
+            Float3(1, 7),
+            Float3(3, 7),
+            Float3(3, 8),
+            Float3(7, 8),
+            Float3(7, 10),
+            Float3(10, 10),
+            Float3(10, 1),
+            Float3(3, 1),
+            Float3(3, 5),
+            Float3(7, 5),
+            Float3(7, 3),
+            Float3(1, 3)
+        },
+        {
+            Float3(8, 11),
+            Float3(8, 7),
+            Float3(2, 7),
+            Float3(2, 10),
+            Float3(6, 10),
+            Float3(6, 1),
+            Float3(2, 1),
+            Float3(2, 4),
+            Float3(8, 4),
+            Float3(8, 1),
+            Float3(10, 1),
+        },
+        {
+            Float3(1, 11),
+            Float3(1, 8),
+            Float3(10, 8),
+            Float3(10, 5),
+            Float3(1, 5),
+            Float3(1, 1),
+            Float3(9, 1),
+            Float3(9, 3),
+            Float3(4, 3)
+        }
+
+    };
 };

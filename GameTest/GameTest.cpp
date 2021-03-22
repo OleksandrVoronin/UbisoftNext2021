@@ -17,20 +17,7 @@ TowerDefenseArena* arena;
 //------------------------------------------------------------------------
 void Init()
 {
-    const std::vector<Float3> map{
-        Float3(10, 11),
-        Float3(10, 8),
-        Float3(6, 8),
-        Float3(6, 5),
-        Float3(4, 5),
-        Float3(4, 10),
-        Float3(1, 10),
-        Float3(1, 3),
-        Float3(10, 3),
-        Float3(10, 1),
-        Float3(1, 1)
-    };
-    arena = new TowerDefenseArena(12, 12, map);
+    arena = new TowerDefenseArena();
 }
 
 //------------------------------------------------------------------------

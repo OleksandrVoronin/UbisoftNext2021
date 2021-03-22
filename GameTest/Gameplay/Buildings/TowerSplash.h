@@ -62,8 +62,8 @@ public:
                     if (abs(x) == 1 && abs(y) == 1) continue;
 
                     ArenaTile* iterationTile = arena->GetTileByIndices(
-                        target->GetCurrentTile()->GetTileCoordinates().x + x,
-                        target->GetCurrentTile()->GetTileCoordinates().z + y);
+                        static_cast<int>(target->GetCurrentTile()->GetTileCoordinates().x) + x,
+                        static_cast<int>(target->GetCurrentTile()->GetTileCoordinates().z) + y);
 
                     if (iterationTile)
                     {
